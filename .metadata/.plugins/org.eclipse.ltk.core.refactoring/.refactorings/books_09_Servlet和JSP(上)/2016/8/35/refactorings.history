@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Copy element &apos;servlet-api-2.5.jar&apos; to &apos;lib&apos;&#x0D;&#x0A;- Original project: &apos; books_09_Servlet和JSP(上)&apos;&#x0D;&#x0A;- Destination element: &apos;lib&apos;&#x0D;&#x0A;- Original element: &apos;servlet-api-2.5.jar&apos;" description="Copy file" element1="WebRoot/WEB-INF/lib/servlet-api-2.5.jar" files="1" flags="589830" folders="0" id="org.eclipse.jdt.ui.copy" policy="org.eclipse.jdt.ui.copyResources" stamp="1472005324328" target="/ books_10_Servlet和JSP(下)/WebRoot/WEB-INF/lib" units="0" version="1.0"/>
+</session>

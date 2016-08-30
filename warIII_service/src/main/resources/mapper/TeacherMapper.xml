@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" 
+"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd" >  
+<mapper namespace="com.dragon.warIII.service.teacher.dao.TeacherDAO">
+	<!-- 1.findByNo(嵌套查询) -->
+	<!-- 
+	<select id="findByNo" parameterType="java.lang.String"
+		resultMap="teacherMap">
+		select * from teacher where tno=#{tNo}
+	</select>
+	<select id="findCourseByTNo" parameterType="java.lang.String"
+		resultType="com.dragon.warIII.service.course.entity.Course">
+		select * from course where tno=#{tNo}
+	</select>
+	<resultMap type="com.dragon.warIII.service.teacher.entity.Teacher" id="teacherMap">
+		<id property="tNo" column="tno"/>
+		<result property="tName" column="tname"/>
+		<collection property="courses" column="tno" 
+			javaType="java.util.ArrayList"
+			select="findCourseByTNo" ofType="com.dragon.warIII.service.course.entity.Course">
+		</collection>
+	</resultMap> -->
+	<!-- 2.findByNo(嵌套结果) -->
+	<select id="findByNo" parameterType="java.lang.String"
+		resultMap="teacherMap">
+		select t.*, c.* from teacher t
+		inner join course c on t.tno = c.tno
+		where t.tno = #{tNo}	
+	</select>
+	<resultMap type="com.dragon.warIII.service.teacher.entity.Teacher" id="teacherMap">
+		<id property="tNo" column="tno"/>
+		<result property="tName" column="tname"/>
+		<collection property="courses" ofType="com.dragon.warIII.service.course.entity.Course"
+			javaType="java.util.ArrayList" column="tno">
+			<id property="cNo" column="cno"/>
+			<result property="cName" column="cname"/>
+			<result property="tNo" column="tno"/>
+		</collection>
+	</resultMap>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+</mapper>

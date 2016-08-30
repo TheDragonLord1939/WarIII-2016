@@ -1,0 +1,9 @@
+ENDORSED_DIRS="E\:\\Tomcat\\apache-tomcat-8.5.4/common/endorsed"
+JDK_HOME=E\:\\Java\\Jdk1.7.0_80
+LIBRARY_PATH="E\:\\Java\\Jdk1.7.0_80\\bin;E\:\\Tomcat\\apache-tomcat-8.5.4\\bin"
+OPT_VM_ARGS=-Xms256m -Xmx512m -XX\:MaxNewSize\=256m -XX\:MaxPermSize\=256m -Dfile.encoding\=gbk
+SERVER_ENABLEMENT=true
+TOMCAT_BASE=E\:\\Tomcat\\apache-tomcat-8.5.4
+TOMCAT_HOME=E\:\\Tomcat\\apache-tomcat-8.5.4
+TOMCAT_TEMP=E\:\\Tomcat\\apache-tomcat-8.5.4\\temp
+eclipse.preferences.version=1

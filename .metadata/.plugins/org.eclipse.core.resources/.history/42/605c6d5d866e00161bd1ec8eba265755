@@ -1,0 +1,15 @@
+package com.dragon.warIII.base64.test;
+
+import org.junit.Test;
+
+import com.dragon.warIII.base64.Base64Util;
+
+public class Base64UtilTest {
+
+	@Test
+	public void testEncode() {
+		String str = "你好,我是瀧爷.";
+		String enStr = Base64Util.encode(str.getBytes());
+		System.out.println("加密后的字符串：" + enStr);
+	}
+}

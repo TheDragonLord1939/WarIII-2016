@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE configuration PUBLIC "-//ibatis.apache.org//DTD Config 3.0//EN" 
+"http://ibatis.apache.org/dtd/ibatis-3-config.dtd" >  
+<configuration>
+	<environments default="environment">
+		<environment id="environment">
+			<transactionManager type="JDBC"/>
+			<dataSource type="POOLED">
+				<property name="driver" value="oracle.jdbc.driver.OracleDriver"></property>
+				<property name="url" value="jdbc:oracle:thin:@localhost:1521:ORCL"></property>
+				<property name="username" value="LOCAL_TEST"></property>
+				<property name="password" value="406128445ncl"></property>
+			</dataSource>
+		</environment>
+	</environments>
+	
+	<mappers>
+		<!--   此处配置的是映射文件的地址 -->
+	    <mapper resource="com/dragon/warIII/unit02/case2/entity/Student.xml"/> 
+        <!-- <mapper class="com.dragon.warIII.unit02.case2.StudentMapper"/> -->
+	</mappers>
+</configuration>

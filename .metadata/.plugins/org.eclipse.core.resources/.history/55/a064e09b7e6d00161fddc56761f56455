@@ -1,0 +1,12 @@
+package com.dragon.warIII.utils.test;
+
+import org.junit.Test;
+
+public class HttpTest {
+
+	@Test
+	public void test1() {
+		
+	}
+
+}

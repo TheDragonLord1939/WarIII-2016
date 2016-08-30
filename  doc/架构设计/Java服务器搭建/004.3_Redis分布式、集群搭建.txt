@@ -1,0 +1,87 @@
+3. Redis分布式、集群搭建
+	3.1. 创建用户、用户组：
+		 * 添加账号：useradd dragon
+		 * 添加群组：groupadd root
+		 * 设置到组：usermod -g root dragon
+		 * 修改密码：passwd dragon [输入密码] 40612844****
+	3.2. 创建目录结构：
+		 * 切换到root账号进行如下操作：
+		 	su root
+		 	mkdir -p /software
+		 	chown -R dragon:root /software
+		 	chown -R dragon:root /usr/local
+		 	chown -R dragon:root /opt
+		 * 说明：使用chown操作确保nick账号对这些路径具有操作权限:
+		 	/software	用作临时文件夹
+		 	/usr/local  软件包安装位置
+		 	/opt 		数据目录
+	3.3. 编译安装:
+		 *  cd /software
+		 	wget http://download.redis.io/releases/redis-3.2.0.tar.gz
+		 	tar -zxvf redis-3.2.0.tar.gz
+		 	cd redis-3.2.0.tar.gz
+		 	make
+		 	cd src
+		 	make install
+	3.4. 创建目录:
+		 mkdir -p /usr/local/redis/bin
+		 mkdir -p /usr/local/redis/conf
+		 cd /usr/local/bin
+		 mv redis-benchmark redis-check-aof redis-check-dump
+		 	redis-cli redis-server /usr/local/redis/bin
+		 cd /software/redis-3.2.0.tar.gz
+		 mv redis.conf /usr/local/redis/conf
+	3.5. 启动、关闭
+		 * 启动Redis服务器：指定配置文件位置（前台启动）
+		   cd /usr/local/redis/bin
+		   ./redis-server ../conf/redis.conf
+		 * 后台启动：修改redis.conf文件中daemonize为yes即可，使用如上命令再次启动
+		   cd /usr/local/redis/conf/
+		   vi redis.conf
+		 * 进行监控
+		   netstat -apn | grep 6379	--redis启动默认占用6379端口
+		   ps -ef | grep redis --使用进程查看命令
+		   kill 31233	--可以进行强制关闭 31233为进程号
+		 * 关闭操作：通常使用如下命令，很优雅地进行关闭，而不是KILL
+		   ./redis-cli shutdown
+	3.6. 客户端操作
+		 * ./redis-cli	--客户端登录
+		   set name lili 
+		   get name
+ 	3.7. 性能监控：-l(loop)是循环的意思，使用ctrl+c退出
+ 		 ./redis-benchmark -l
+ 	3.8. shell脚本
+ 		 3.8.1. 定位到用户主目录: cd ~
+ 		 3.8.2. * 启动脚本： 
+				  vi start-redis.sh
+			      cd /usr/local/redis/bin
+			      ./redis-server ../conf/redis.conf
+ 		 	    * 关闭脚本： 
+    			  vi stop-redis.sh
+    		      cd /usr/local/redis/bin
+    		      ./redis-cli shutdown
+ 		 	    * 客户端连接脚本： 
+				  vi connect-redis.sh
+	              cd /usr/local/redis/bin
+	              ./redis-cli
+ 		 	    * 可执行权限：
+ 		 	      chmod +x start-redis.sh
+ 		 	      chmod +x stop-redis.sh
+ 		 	      chmod +x connect-redis.sh
+ 		 3.8.3. 执行启动、连接、关闭脚本
+ 		 		./start-redis.sh
+ 		 		./connect-redis.sh
+ 		 		./stop-redis.sh	
+	3.9. 主从配置
+ 		 * 复制 redis.conf 五份，修改端口(注意：如果是本地ip改为127.0.0.1)
+ 		 	redis.conf 6279-主
+ 		 	redis1.conf 6479-从
+ 		 	redis2.conf 6579-从
+ 		 	
+ 		 	redis3.conf 7379-主
+ 		 	redis4.conf 7479-从
+ 		 	redis5.conf 7579-从
+ 		 * 增加多实例启动脚本       
+ 		 * 增加多实例关闭脚本
+ 	3.10. 引入Jedis 
+ 		3.10.1. 引入Jedisjar包依赖(注意：测试时redis.conf文件中的protected-mode应该改为no)

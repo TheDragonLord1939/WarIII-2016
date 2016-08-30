@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:cache="http://www.springframework.org/schema/cache"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans    
+                        http://www.springframework.org/schema/beans/spring-beans-3.1.xsd    
+                        http://www.springframework.org/schema/context    
+                        http://www.springframework.org/schema/context/spring-context-3.1.xsd    
+                        http://www.springframework.org/schema/mvc    
+                        http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd
+                        http://www.springframework.org/schema/cache    
+           				http://www.springframework.org/schema/cache/spring-cache-4.3.xsd ">
+	<!-- 1.自动扫描该包，使SpringMVC认为包下用了@controller注解的类是控制器 -->
+	<context:component-scan base-package="com.dragon.warIII" />
+
+	<!-- 2.引入数据源dbcp -->
+	<import resource="classpath:conf/applicationContext-dataSource-dbcp.xml" />
+
+	<!-- 3.SpringMybatis -->
+	<!-- 3.1. 配置SqlSessionFactoryBean -->
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" /><!-- 指定连接资源 -->
+		<property name="mapperLocations" value="classpath:mapper/*.xml" /><!-- 
+			指定映射文件 -->
+	</bean>
+	<!-- 3.2.1定义Mapper --><!-- 注意：有一个Mapper就需要定义一个对应的MapperFactoryBean,不方便,所以用MapperScannerConfigurer替代 -->
+	<!-- <bean id="studentDAO" class="org.mybatis.spring.mapper.MapperFactoryBean"> 
+		<property name="mapperInterface" value="com.dragon.warIII.service.student.dao.StudentDAO"/>指定Mapper接口 
+		<property name="sqlSessionFactory" ref="sqlSessionFactory"/>指定SqlSessionFactoryBean对象 
+		</bean> -->
+	<!-- 3.2.2Mapper扫描 --><!-- 注意：不要注入sqlSessionFactory,因为会自动注入 -->
+	<!-- <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer"> <property 
+		name="basePackage" value="com.dragon.warIII.service"/>指定包 <property name="annotationClass" 
+		value="com.dragon.warIII.core.dao.MyBatisRepository"/>指定注解标记扫描 </bean> -->
+	<!-- 3.2.3.定义SqlSessionTemplate -->
+	<bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate">
+		<constructor-arg index="0" ref="sqlSessionFactory"></constructor-arg>
+	</bean>
+	
+	<!-- 4.引入缓存 -->
+	<import resource="classpath*:conf/applicationContext-springAnnotationMemcached.xml"/>
+</beans>

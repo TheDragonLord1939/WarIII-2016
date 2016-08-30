@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+<beans xmlns="http://www.springframework.org/schema/beans"  
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"  
+    xmlns:context="http://www.springframework.org/schema/context"  
+    xmlns:mvc="http://www.springframework.org/schema/mvc"  
+    xmlns:aop="http://www.springframework.org/schema/aop"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans    
+                        http://www.springframework.org/schema/beans/spring-beans-3.1.xsd    
+                        http://www.springframework.org/schema/context    
+                        http://www.springframework.org/schema/context/spring-context-3.1.xsd    
+                        http://www.springframework.org/schema/mvc    
+                        http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd
+                        http://www.springframework.org/schema/aop
+                        http://www.springframework.org/schema/aop/spring-aop-3.2.xsd"> 
+                         
+	<!-- 1.声明方面最组件 -->
+    <bean id="operateLogger" class="com.dragon.warIII.aop.OperateLoggerXML"/>
+    
+    <!-- 2.配置AOP,将方面组件作用到目标组件上 -->
+    <aop:config>
+		<aop:aspect ref="operateLogger">
+    		<aop:before method="beforeLog" pointcut="within(com.dragon.warIII.controller..*)"/>		<!-- 前置通知 -->
+    		<aop:after-returning method="afterReturnLog" pointcut="within(com.dragon.warIII.controller..*)"/><!-- 后置通知 -->
+    		<aop:after method="afterLog" pointcut="within(com.dragon.warIII.controller..*)"/>		<!-- 最终通知 -->
+    		<aop:around method="aroundLog" pointcut="within(com.dragon.warIII.controller..*)"/>		<!-- 环绕通知 -->
+    		<aop:after-throwing method="afterThrowingLog" throwing="e" pointcut="within(com.dragon.warIII.controller..*)"/>	<!-- 异常通知 -->
+    	</aop:aspect> 
+    </aop:config>
+</beans>

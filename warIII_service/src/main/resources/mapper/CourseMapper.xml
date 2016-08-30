@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8" ?>  
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN" 
+"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd" >  
+<mapper namespace="com.dragon.warIII.service.course.dao.CourseDAO">
+	<!-- save -->
+	<insert id="save" parameterType="com.dragon.warIII.service.course.entity.Course">
+		insert into course(cno, cname, tno) values (#{cNo}, #{cName}, #{tNo})
+	</insert>
+	
+	<!-- update -->
+	<update id="update" parameterType="com.dragon.warIII.service.course.entity.Course">
+		update course 
+		<set>
+			<if test="cName != null">
+				cname=#{cName},
+			</if>
+			<if test="tNo != null">
+				tno=#{tNo}
+			</if>
+		</set>
+		where cno=#{cNo}
+	</update>
+	
+	<!-- delete -->
+	<delete id="delete" parameterType="java.lang.String">
+		delete from course where cno=#{cNo}
+	</delete>
+	
+	<!-- 1.findByNo -->
+	<!-- 
+	<select id="findByNo" parameterType="java.lang.String"
+		resultType="com.dragon.warIII.service.course.entity.Course">
+		select cno, cname, tno from course where cno=#{cNo}
+	</select> -->
+	<!-- 2.findByNo(使用嵌套查询,在查询一个课程信息时,关联查询出对应任课教师信息)-->
+	<!-- 
+	<select id="findByNo" parameterType="java.lang.String" resultMap="courseMap">
+		select * from course where cno=#{cNo}
+	</select>
+	<select id="findTeacherByNo" parameterType="java.lang.String"
+		resultType="com.dragon.warIII.service.teacher.entity.Teacher">
+		select * from teacher where tno=#{tNo}	
+	</select>
+	<resultMap type="com.dragon.warIII.service.course.entity.Course" id="courseMap">
+		<association property="teacher" column="tno"
+			javaType="com.dragon.warIII.service.teacher.entity.Teacher"
+			select="findTeacherByNo">
+		</association>
+	</resultMap> -->
+	<!-- 3.findByNo(使用嵌套结果,在查询一条员工数据时,关联查询出对应的部门) -->
+	<select id="findByNo" parameterType="java.lang.String" resultMap="courseMap">
+		select c.*, t.* from course c
+		inner join teacher t on c.tno = t.tno
+		where c.cno = #{cNo}
+	</select>
+	<resultMap type="com.dragon.warIII.service.course.entity.Course" id="courseMap">
+		<id property="cNo" column="cno"/>
+		<result property="cName" column="cname"/>
+		<result property="tNo" column="tno"/>
+		
+		<association property="teacher" column="tno"
+			javaType="com.dragon.warIII.service.teacher.entity.Teacher">
+			<id property="tNo" column="tno"/>
+			<result property="tName" column="tname"/>
+		</association>
+	</resultMap>
+	
+	<!-- findByNoToMap -->
+	<select id="findByNoToMap" parameterType="java.lang.String"
+		resultType="java.util.HashMap">
+		select cno, cname, tno from course where cno=#{cNo}	
+	</select>   
+
+	<!-- findAll -->    
+	<select id="findAll" resultType="com.dragon.warIII.service.course.entity.Course">
+		select cno, cname, tno from course
+	</select>
+	<!-- findAllByMap -->
+	<select id="findAllByMap" parameterType="java.util.Map"
+		resultType="com.dragon.warIII.service.course.entity.Course">
+		select cno, cname, tno from course	
+		<where>
+			<!-- 
+			<if test="cname != null">
+				and cname=#{cname, jdbcType=VARCHAR}
+			</if> -->
+			<choose>
+				<when test="cname = 'Oracle'">
+					and cname in ('Oracle', 'J2SE')
+				</when>
+				<otherwise>
+					and cname=#{cname, jdbcType=VARCHAR}
+				</otherwise>
+			</choose>
+			<if test="tno != null">
+				and tno=#{tno, jdbcType=VARCHAR}
+			</if>
+		</where>
+	</select>
+	<!-- findAllToMap -->
+	<select id="findAllToMap" resultType="java.util.HashMap">
+		select cno, cname, tno from course
+	</select>  
+	
+	<!-- findCount -->
+	<select id="findCount" resultType="java.lang.Integer">
+		select count(*) from course  
+	</select>
+	
+	<!-- findByNos -->
+	<select id="findByNos" 
+		resultType="com.dragon.warIII.service.course.entity.Course">
+		select cno, cname, tno from course where cno in
+		<foreach collection="list"
+			open="(" close=")" separator="," item="no">
+				#{no, jdbcType=VARCHAR}
+			</foreach>
+	</select>
+</mapper>

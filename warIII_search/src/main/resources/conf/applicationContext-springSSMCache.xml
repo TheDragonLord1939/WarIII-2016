@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+<beans xmlns="http://www.springframework.org/schema/beans"  
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"  
+    xmlns:context="http://www.springframework.org/schema/context"  
+    xmlns:mvc="http://www.springframework.org/schema/mvc"  
+    xmlns:aop="http://www.springframework.org/schema/aop"
+    xmlns:cache="http://www.springframework.org/schema/cache"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans    
+                        http://www.springframework.org/schema/beans/spring-beans-3.1.xsd    
+                        http://www.springframework.org/schema/context    
+                        http://www.springframework.org/schema/context/spring-context-3.1.xsd    
+                        http://www.springframework.org/schema/mvc    
+                        http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd
+                        http://www.springframework.org/schema/aop
+                        http://www.springframework.org/schema/aop/spring-aop-3.2.xsd
+                        http://www.springframework.org/schema/cache    
+           				http://www.springframework.org/schema/cache/spring-cache-4.3.xsd "> 
+           				
+    <!-- 1.使用spring提供的PropertyPlaceholderConfigurer读取数据库配置信息.properties -->
+	<context:property-placeholder location="ssmcache.properties"/>
+	
+    <!-- 2.Memcached工厂 -->
+	<bean name="ssmCacheFactory" class="com.google.code.ssm.CacheFactory">
+		<property name="cacheName" value="ssmcache"></property><!-- 该Memcached配置的Cache名称, 一个应用中存在多个Memcached时,各个配置的cacheName必须不同.如果该值未设,系统默认为default -->  
+		<property name="cacheClientFactory">
+			<bean name="cacheClientFactory" class="com.google.code.ssm.providers.xmemcached.MemcacheClientFactoryImpl"></bean>
+		</property>
+		<property name="addressProvider">
+			<bean class="com.google.code.ssm.config.DefaultAddressProvider"><!-- memcached 服务器地址,可配置多个,用“,”号隔开 --> 
+				<property name="address"  value="${memcached.address1}, ${memcached.address2}, ${memcached.address3}, ${memcached.address4}"></property>
+			</bean>								   
+		</property>
+		<property name="configuration">
+			<bean class="com.google.code.ssm.providers.CacheConfiguration"><!-- 是否使用哈希 -->  
+				<property name="consistentHashing" value="true"></property>
+			</bean>
+		</property>
+	</bean>
+	
+	<!-- 3.SSMCache管理器 -->
+	<bean id="ssmCacheManager" class="com.dragon.warIII.cache.SSMCacheExtendManager">
+		<property name="caches">
+			<set>
+				<bean class="com.dragon.warIII.cache.SSMCacheCache">
+					<property name="cache" ref="ssmCacheFactory" />
+					<property name="timeout" value="600"></property>
+					<property name="allowClear" value="false"></property>
+				</bean>
+			</set>
+		</property>
+	</bean>
+	<!-- 
+	<bean id="memcachedClient" name="memcachedClient" class="net.spy.memcached.spring.MemcachedClientFactoryBean">
+		<property name="servers" value="192.168.1.58:10002" />
+		<property name="protocol" value="BINARY" />
+		<property name="transcoder">
+			<bean class="net.spy.memcached.transcoders.SerializingTranscoder">
+				<property name="compressionThreshold" value="1024" />
+			</bean>
+		</property>
+		<property name="opTimeout" value="50" />
+		<property name="timeoutExceptionThreshold" value="1998" />
+		<property name="hashAlg">
+			<value type="net.spy.memcached.DefaultHashAlgorithm">
+				KETAMA_HASH
+			</value>
+		</property>
+		<property name="locatorType" value="CONSISTENT" />
+		<property name="failureMode" value="Redistribute" />
+		<property name="useNagleAlgorithm " value="false" />
+	</bean> -->
+</beans>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

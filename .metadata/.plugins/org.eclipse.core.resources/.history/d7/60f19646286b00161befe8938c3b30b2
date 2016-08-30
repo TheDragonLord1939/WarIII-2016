@@ -1,0 +1,32 @@
+package com.dragon.warIII.utils.common;
+
+import java.util.Random;
+
+/**
+ * @description 功能描述: 生成随机字符串(三种方式)
+ * @author 作 者: L.D
+ * @createdate 建立日期：2016-8-26
+ * @projectname 项目名称: warIII_utils
+ * @packageclass 包及类名: com.dragon.warIII.utils.common  RandomString.java
+ */
+public class RandomString {
+	
+	/**
+	 * <p>生成的字符串每个位置都有可能是str中的一个字母或数字</p>
+	 * 1.招商银行秘钥(秘钥长度16位,要求包含数字和大、小写字母)
+	 */
+	public static String getRandomString(int length){
+	     String str="abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+	     Random random=new Random();
+	     StringBuffer sb=new StringBuffer();
+	     for(int i=0;i<length;i++){
+	       int number=random.nextInt(62);
+	       sb.append(str.charAt(number));
+	     }
+	     return sb.toString();
+	 }
+	
+	public static void main(String[] args) {
+		System.out.println(getRandomString(100));
+	}
+}

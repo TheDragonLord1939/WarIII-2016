@@ -1,0 +1,34 @@
+1. ApplicationContext加载多个配置文件
+不同项目使用不同分模块策略，spring配置文件分为
+applicationContext.xml(主文件,包括JDBC配置,hibernate.cfg.xml,与所有的Service与DAO基类)
+applicationContext-cache.xml(cache策略,包括hibernate的配置)
+applicationContext-jmx.xml(JMX,调试hibernate的cache性能)
+applicationContext-security.xml(acegi安全)
+applicationContext-transaction.xml(事务)
+moduleName-Service.xml
+moduleName-dao.xml
+1.1. 可以在applicationContext.xml文件中引用
+    <beans></beans>标记之间引入其他applicationContext.xml
+    <beans>
+         <import resource="applicationContext-cache.xml"/>
+    </beans>
+2.或者在web.xml文件中引用
+   <context-param>
+     <param-name>contextConfigLocation</param-name>
+     <param-value>
+         WEB-INF/classes/applicationContext-security.xml
+        ,WEB-INF/classes/applicationContext-dao.xml
+        ,WEB-INF/classes/applicationContext-Service.xml
+     </param-value>
+   </context-param>
+   <listener>
+      <listener-class>
+            org.springframework.web.context.ContextLoaderListener
+      </listener-class>
+   </listener>
+
+ 
+
+ 
+
+http://blog.codehangover.com/load-multiple-contexts-into-spring/

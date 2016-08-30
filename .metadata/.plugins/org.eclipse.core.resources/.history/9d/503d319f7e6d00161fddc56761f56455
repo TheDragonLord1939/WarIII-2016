@@ -1,0 +1,14 @@
+package com.dragon.warIII.utils.test;
+
+import org.junit.Test;
+
+import com.dragon.warIII.utils.http.HttpClient;
+
+public class HttpTest {
+
+	@Test
+	public void test1() {
+		HttpClient.httpPostWithMap("http://commapi.228.cn/message/send", null)
+	}
+
+}

@@ -1,0 +1,24 @@
+package com.dragon.warIII.utils.test;
+
+import org.junit.Test;
+
+import com.dragon.warIII.utils.http.HttpClient;
+
+public class HttpTest {
+
+	@Test
+	public void test1() {
+		try {
+			String result = HttpClient.httpPostWithMap("http://commapi.228.cn/message/send", null);
+			System.out.println("result-->" + result);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	@Test
+	public void test2() {
+	}
+
+}

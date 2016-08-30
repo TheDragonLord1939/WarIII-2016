@@ -1,0 +1,32 @@
+content_assist_lru_history=<?xml version\="1.0" encoding\="UTF-8" standalone\="no"?><history maxLHS\="100" maxRHS\="10"><lhs name\="java.util.Random"><rhs name\="java.util.Random"/></lhs><lhs name\="java.util.Map"><rhs name\="java.util.HashMap"/></lhs><lhs name\="java.lang.CharSequence"><rhs name\="java.lang.String"/></lhs></history>
+content_assist_number_of_computers=17
+content_assist_proposals_background=255,255,255
+content_assist_proposals_foreground=0,0,0
+eclipse.preferences.version=1
+fontPropagated=true
+org.eclipse.jdt.ui.editor.tab.width=
+org.eclipse.jdt.ui.exception.name=e
+org.eclipse.jdt.ui.formatterprofiles.version=12
+org.eclipse.jdt.ui.gettersetter.use.is=true
+org.eclipse.jdt.ui.javadoclocations.migrated=true
+org.eclipse.jdt.ui.overrideannotation=true
+org.eclipse.jdt.ui.text.code_templates_migrated=true
+org.eclipse.jdt.ui.text.custom_code_templates=<?xml version\="1.0" encoding\="UTF-8" standalone\="no"?><templates><template autoinsert\="false" context\="filecomment_context" deleted\="false" description\="Comment for created Java files" enabled\="true" id\="org.eclipse.jdt.ui.text.codetemplates.filecomment" name\="filecomment">/**\r\n * @description \u529F\u80FD\u63CF\u8FF0\: \r\n * @author \u4F5C \u8005\: L.D\r\n * @createdate \u5EFA\u7ACB\u65E5\u671F\uFF1A${date}\r\n * @projectname \u9879\u76EE\u540D\u79F0\: ${project_name}\r\n * @packageclass \u5305\u53CA\u7C7B\u540D\: ${package_name}  ${file_name}\r\n */</template><template autoinsert\="false" context\="typecomment_context" deleted\="false" description\="Comment for created types" enabled\="true" id\="org.eclipse.jdt.ui.text.codetemplates.typecomment" name\="typecomment">/**&\#13;\r\n * @description \u529F\u80FD\u63CF\u8FF0\: &\#13;\r\n * @author \u4F5C \u8005\: L.D&\#13;\r\n * @createdate \u5EFA\u7ACB\u65E5\u671F\uFF1A${date}&\#13;\r\n * @projectname \u9879\u76EE\u540D\u79F0\: ${project_name}&\#13;\r\n * @packageclass \u5305\u53CA\u7C7B\u540D\: ${package_name}  ${file_name}&\#13;\r\n */</template><template autoinsert\="false" context\="fieldcomment_context" deleted\="false" description\="Comment for fields" enabled\="true" id\="org.eclipse.jdt.ui.text.codetemplates.fieldcomment" name\="fieldcomment">/**\r\n * @description \u529F\u80FD\u63CF\u8FF0\: \r\n * @author \u4F5C \u8005\: L.D\r\n * @createdate \u5EFA\u7ACB\u65E5\u671F\uFF1A${date}\r\n * @projectname \u9879\u76EE\u540D\u79F0\: ${project_name}\r\n * @packageclass \u5305\u53CA\u7C7B\u540D\: ${package_name}  ${file_name}\r\n */</template></templates>
+org.eclipse.jdt.ui.text.custom_templates=<?xml version\="1.0" encoding\="UTF-8" standalone\="no"?><templates/>
+org.eclipse.jdt.ui.text.templates_migrated=true
+org.eclipse.jface.textfont=1|Consolas|11.25|0|WINDOWS|1|-15|0|0|0|400|0|0|0|0|3|2|1|49|Consolas;
+proposalOrderMigrated=true
+spelling_ignore_ampersand_in_properties=true
+spelling_ignore_digits=true
+spelling_ignore_java_strings=true
+spelling_ignore_mixed=true
+spelling_ignore_non_letters=true
+spelling_ignore_sentence=true
+spelling_ignore_single_letters=true
+spelling_ignore_upper=true
+spelling_ignore_urls=true
+spelling_locale_initialized=true
+spelling_user_dictionary_encoding=GBK
+tabWidthPropagated=true
+useAnnotationsPrefPage=true
+useQuickDiffPrefPage=true

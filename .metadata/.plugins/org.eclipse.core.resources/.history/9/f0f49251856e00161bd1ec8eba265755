@@ -1,0 +1,11 @@
+package com.dragon.warIII.base64.test;
+
+import org.junit.Test;
+
+public class Base64UtilTest {
+
+	@Test
+	public void testEncode() {
+		
+	}
+}

@@ -1,0 +1,48 @@
+基于SpringMVC和JDBC技术开发的主要步骤(总)：
+1. 创建工程，搭建SpringMVC和JDBC技术环境
+	1.1. 创建一个Web工程
+	1.2. 添加JDBC相关技术环境
+		1.2.1. 引入数据库驱动包
+		1.2.2. 引入dbcp连接池开发包
+	1.3. 添加SpringMVC相关技术环境
+		1.3.1. 引入SpringIOC,JDBC,tx等支持的开发包
+		1.3.2. 引入SpringWebMVC支持的开发包
+		1.3.3. 在src下添加applicationContext.xml配置文件
+		1.3.4. 在web.xml中配置DispatcherServlet主控制器
+2. 基于JdbcTemplate实现DAO组件
+	2.1. 根据数据表编写实体类
+	2.2. 在Spring容器中配置DAO实现类
+		 定义DAO对象,注入JdbcTemplate
+    2.3. 测试Spring容器的DAO组件
+3. 编写和配置SpringMVC的主要组件,例如Controller,HandlerMapping,ViewResolver等
+	3.1. 编写Controller和请求处理方法
+	3.2. 配置<mvc:annotation-driven/>,支持@RequestMapping
+	3.3. 配置Controller组件
+		3.3.1. 开启组件扫描,将Controller扫描到Spring容器
+		3.3.2. 需要DAO时采用注入方式使用
+		3.3.3. 在请求处理方法上使用@RequestMapping指定对应的请求
+    3.4. 配置ViewResolver组件
+4. 编写JSP视图组件,利用标签和表达式显示模型数据
+	4.1. JSP可以使用JSTL标签库,需要引入开发包
+	4.2. JSP可以使用EL表达式
+	4.3. JSP可以使用SpringMVC的表单标签
+5. 测试程序
+
+
+1. 引入相关Jar包
+	1.1. 数据库jar包
+		 <!-- 导入Oracle数据库链接jar包 -->
+         <dependency>
+			 <groupId>com.oracle</groupId>
+			 <artifactId>ojdbc14</artifactId>
+			 <version>10.2.0.4.0</version>
+		 </dependency>
+	1.2.Spring-JDBC包
+		<!-- https://mvnrepository.com/artifact/org.springframework/spring-jdbc -->
+		<dependency>
+   			 <groupId>org.springframework</groupId>
+   			 <artifactId>spring-jdbc</artifactId>
+    		 <version>4.1.6.RELEASE</version>
+		</dependency>
+2. 在applicationContext-SpringJdbc.xml中添加JdbcTemplate bean,并注入数据源
+3. 在DAO中注入JdbcTemlate

@@ -1,0 +1,8 @@
+package com.dragon.warIII.base64;
+
+public class Base64Util {
+
+	public static byte[] decode(final byte[] bytes) {
+		
+	}
+}
