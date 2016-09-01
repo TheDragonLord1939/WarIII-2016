@@ -1,19 +1,27 @@
 package com.dragon.warIII.rsa;
 
 import java.math.BigInteger;
+import java.nio.charset.StandardCharsets;
+import java.security.Key;
 import java.security.KeyFactory;
 import java.security.KeyPair;
 import java.security.KeyPairGenerator;
+import java.security.PrivateKey;
+import java.security.PublicKey;
 import java.security.interfaces.RSAPrivateKey;
 import java.security.interfaces.RSAPublicKey;
+import java.security.spec.PKCS8EncodedKeySpec;
 import java.security.spec.RSAPrivateKeySpec;
 import java.security.spec.RSAPublicKeySpec;
+import java.security.spec.X509EncodedKeySpec;
 import java.util.HashMap;
 import java.util.Map;
 
 import javax.crypto.Cipher;
 
 import org.apache.log4j.Logger;
+
+import com.dragon.warIII.base64.Base64Util;
 
 import sun.security.util.BigInt;
 
@@ -253,6 +261,57 @@ public class RSAUtil {
         }  
         return arrays;  
     }  
+    
+    /**
+     * <p>6.字符串类型的公钥转换对象类型的公钥</p>
+     */
+    public static PublicKey getPublicKey(String key) {
+    	try {
+			byte[] keyBytes;
+			keyBytes = Base64Util.decodee(key.getBytes(StandardCharsets.UTF_8));
+			
+			X509EncodedKeySpec keySpec = new X509EncodedKeySpec(keyBytes);
+			KeyFactory keyFactory = KeyFactory.getInstance("RSA");
+			PublicKey publicKey = keyFactory.generatePublic(keySpec);
+			return publicKey;
+		} catch (Exception e) {
+			log.error(
+					"RSAUtil.getPublicKey() error, cause by " + e.getMessage(),
+					e);
+			e.printStackTrace();
+		}
+    	return null;
+    }
+    
+    /**
+     * <p>7.字符串类型的私钥转换为对象类型的私钥</p>
+     */
+    public static PrivateKey getPrivateKey(String key) {
+    	try {
+			byte[] keyBytes;
+			keyBytes = Base64Util.decodee(key.getBytes(StandardCharsets.UTF_8));
+			
+			PKCS8EncodedKeySpec keySpec = new PKCS8EncodedKeySpec(keyBytes);
+			KeyFactory keyFactory = KeyFactory.getInstance("RSA");
+			PrivateKey privateKey = keyFactory.generatePrivate(keySpec);
+		} catch (Exception e) {
+			log.error(
+					"RSAUtil.getPublicKey() error, cause by " + e.getMessage(),
+					e);
+			e.printStackTrace();
+		}
+    	return null;
+    }
+    
+    /**
+     * <p>8.得到秘钥字符串(经过Base64编码)</p>
+     */
+    public static String getKeyString(Key key) {
+    	byte[] keyBytes = key.getEncoded();
+    	String s = Base64Util.encode(keyBytes);
+    	return s;
+    }
+    
 }
 
 

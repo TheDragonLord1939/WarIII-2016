@@ -14,16 +14,30 @@ import org.apache.commons.codec.binary.Base64;
 public class Base64Util {
 		
 	/**
-	 * <p>1.加密</p>
+	 * <p>1.加密,返回数据为String类型</p>
 	 */
 	public static String encode(final byte[] bytes) {
 		return Base64.encodeBase64String(bytes);
 	}
 	
 	/**
-	 * <p>2.解密</p>
+	 * <p>2.解密,返回数据为String类型</p>
 	 */
-	public static byte[] decode(final byte[] bytes) {
+	public static String decode(final byte[] bytes) {
+		return new String(Base64.decodeBase64(bytes));
+	}
+	
+	/**
+	 * <p>3.加密,返回数据为byte[]类型</p>
+	 */
+	public static byte[] encodee(final byte[] bytes) {
+		return Base64.encodeBase64(bytes);
+	}
+	
+	/**
+	 * <p>4.解密,返回数据为byte[]类型</p>
+	 */
+	public static byte[] decodee(final byte[] bytes) {
 		return Base64.decodeBase64(bytes);
 	}
 	

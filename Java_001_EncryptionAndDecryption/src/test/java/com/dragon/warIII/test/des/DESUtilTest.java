@@ -30,7 +30,7 @@ public class DESUtilTest {
 		
 		String str = "ycwKoM3jhsKPgukslKqjRQ+k9Fh9ZvdijZMhJ96gq91CsBZTu1RbfVAd8/2Q6NMIcPjdsaWxmEUQNw40G4lrWH5nA30SHMxn";
 		String key = "Q5sJtidC";
-		byte[] arr =  Base64Util.decode(str.getBytes());
+		byte[] arr =  Base64Util.decodee(str.getBytes());
 		//System.out.println(Arrays.toString(src));
 		System.out.println(new String(DESUtil.decrypt(arr, key)));
 		//REQSERIAL=001&CUSTARGNO=001&MERCHANTNO=N3713585&MOBILE=15068821597
