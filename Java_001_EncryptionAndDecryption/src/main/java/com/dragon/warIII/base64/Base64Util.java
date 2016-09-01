@@ -1,5 +1,7 @@
 package com.dragon.warIII.base64;
 
+import java.nio.charset.StandardCharsets;
+
 import org.apache.commons.codec.binary.Base64;
 
 /**
@@ -10,12 +12,12 @@ import org.apache.commons.codec.binary.Base64;
  * @packageclass 包及类名: com.dragon.warIII.base64  Base64Util.java
  */
 public class Base64Util {
-	
+		
 	/**
 	 * <p>1.加密</p>
 	 */
 	public static String encode(final byte[] bytes) {
-		return new String(Base64.encodeBase64(bytes));
+		return Base64.encodeBase64String(bytes);
 	}
 	
 	/**
@@ -26,3 +28,8 @@ public class Base64Util {
 	}
 	
 }
+
+
+
+
+

@@ -13,7 +13,7 @@
         <junit.version>4.12</junit.version>
 	</properties>
 	
-	<dependencies>
+	<dependencies> 
 		<!-- Spring相关Jar包 -->
         <dependency>
             <groupId>org.springframework</groupId>

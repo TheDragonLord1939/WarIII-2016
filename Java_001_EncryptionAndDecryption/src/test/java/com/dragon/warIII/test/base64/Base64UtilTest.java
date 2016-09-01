@@ -19,13 +19,12 @@ public class Base64UtilTest {
 		System.out.println("加密后的字符串：" + enStr);//加密后的字符串：5L2g5aW9LOaIkeaYr+eAp+eIty4=
 	}
 	
-	@Ignore
+//	@Ignore
 	@Test
 	public void testDecode() {
-		String enStr = "5L2g5aW9LOaIkeaYr+eAp+eIty4=";
-		byte[] arr = Base64Util.decode(enStr.getBytes());
-		String str = new String(arr);
-		System.out.println("解密后的字符串：" + str);
+//		String enStr = "5L2g5aW9LOaIkeaYr+eAp+eIty4=";
+//		String str = Base64Util.decode(enStr.getBytes(StandardCharsets.UTF_8));
+//		System.out.println("解密后的字符串：" + str);
 	}
 	
 	@Test
