@@ -1,5 +1,7 @@
 package com.dragon.warIII.test.rsa;
 
+import java.security.PrivateKey;
+import java.security.PublicKey;
 import java.security.interfaces.RSAPrivateKey;
 import java.security.interfaces.RSAPublicKey;
 import java.util.HashMap;
@@ -11,7 +13,7 @@ import com.dragon.warIII.rsa.RSAUtil;
 
 public class RSAUtilTest {
 
-//	@Ignore
+	@Ignore
 	@Test
 	public void rsaTest() {
 		HashMap<String, Object> map = RSAUtil.getKeys();
@@ -52,18 +54,72 @@ public class RSAUtilTest {
 		*/
 	}
 	
+	@Ignore
 	@Test
 	public void testBank() {
 		//银行
 		//1.产生公钥和私钥(私钥保存,公钥发给银行)
-		//3.获取银行传过来的数据,用私钥解密,获取商户数据明文
+		HashMap<String, Object> map = RSAUtil.getKeys();
+		RSAPublicKey publicKey = (RSAPublicKey) map.get("public");
+		RSAPrivateKey privateKey = (RSAPrivateKey) map.get("private");
+		
+		//模
+		String modulus = publicKey.getModulus().toString();
+		//公钥指数
+		String public_exponent = publicKey.getPublicExponent().toString();
+		//公钥指数
+		String private_exponent = privateKey.getPrivateExponent().toString();
+		
+		//使用模和指数生成公钥和私钥
+		RSAPublicKey pubKey = RSAUtil.getPublicKey(modulus, public_exponent);
+		System.out.println("公钥：" + pubKey);
+		RSAPrivateKey priKey = RSAUtil.getPrivateKey(modulus, private_exponent);
+		System.out.println("私钥：" + pubKey);
+		
+		String publicKeyStr = RSAUtil.getKeyString(pubKey);
+		System.out.println("公钥字符窜：" + publicKeyStr);
+		String privateKeyStr = RSAUtil.getKeyString(priKey);
+		System.out.println("私钥字符窜：" + privateKeyStr);
+		/*
+		公钥字符窜：MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQC6nUy2MhufqFa4jY/qLkk8lBGvYQOpcszJhhuocSLXoCUI/DUEx9Ml4RwQIddviUfiUdiqtukucIBS/2nEEv84E1fR6REB9hFRe58GoGVyfnp2Df5BQXu9Ytm7fnOYE34hD3DxjOZQFOKadMBlbWj1B+AQt8ZGF85DzB2INe5YFQIDAQAB
+		私钥字符窜：MIIBNgIBADANBgkqhkiG9w0BAQEFAASCASAwggEcAgEAAoGBALqdTLYyG5+oVriNj+ouSTyUEa9hA6lyzMmGG6hxItegJQj8NQTH0yXhHBAh12+JR+JR2Kq26S5wgFL/acQS/zgTV9HpEQH2EVF7nwagZXJ+enYN/kFBe71i2bt+c5gTfiEPcPGM5lAU4pp0wGVtaPUH4BC3xkYXzkPMHYg17lgVAgEAAoGAIEx/bX1ouI57S//8a6zNMjXyhadF6fsbpLmYaeQDAs0N++sjBgvL6N94avZggkaBcZN2670yyL3iB/t7A9vB3lfMZZ2BJYdRR5gvnxKEd8cpCY7yfNsnLOJqfvaqQHL1B1FdvwyRVm99vZ2bmXe6cgtrazCzfYRiRU2ZXskI2DUCAQACAQACAQACAQACAQA=
+		length = 216
+		*/
 		
 	}
 	
+	@Ignore
 	@Test
 	public void testMerchant() {
 		//商户
 		//2.将加密的数据用公钥加密,发送给银行
+		//公钥字符窜：MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQC6nUy2MhufqFa4jY/qLkk8lBGvYQOpcszJhhuocSLXoCUI/DUEx9Ml4RwQIddviUfiUdiqtukucIBS/2nEEv84E1fR6REB9hFRe58GoGVyfnp2Df5BQXu9Ytm7fnOYE34hD3DxjOZQFOKadMBlbWj1B+AQt8ZGF85DzB2INe5YFQIDAQAB
+		String content = "草泥马，日了狗了!!!";
+		String publicKeyStr = "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQC6nUy2MhufqFa4jY/qLkk8lBGvYQOpcszJhhuocSLXoCUI/DUEx9Ml4RwQIddviUfiUdiqtukucIBS/2nEEv84E1fR6REB9hFRe58GoGVyfnp2Df5BQXu9Ytm7fnOYE34hD3DxjOZQFOKadMBlbWj1B+AQt8ZGF85DzB2INe5YFQIDAQAB";
+		
+		RSAPublicKey publicKey = (RSAPublicKey) RSAUtil.getPublicKey(publicKeyStr);
+		
+		String contentEnc = RSAUtil.encryptByPublicKey(content, publicKey);
+		
+		System.out.println("contentEnc=" + contentEnc);
+	}
+	
+	@Test 
+	public void testVerify() {
+		//3.获取银行传过来的数据,用私钥解密,获取商户数据明文
+		//8C069E980DBAD353E7D091A3DDDC5016D9BAD0F3BE8AC24045183DB63F72A231A5F32AD5D8382E57F484DE993672B0B2C334113A8762A239DEF06AE6BE8BA4FD8E76AC34A0505AB9BA41A85D0EA4677B5BAAE8ED4555613BD04D570A5182892C862D05E504DD1F9CCF4AC7A383B469DBD479524052D78211A60B5999C8FE4264
+		String contentEnc = "8C069E980DBAD353E7D091A3DDDC5016D9BAD0F3BE8AC24045183DB63F72A231A5F32AD5D8382E57F484DE993672B0B2C334113A8762A239DEF06AE6BE8BA4FD8E76AC34A0505AB9BA41A85D0EA4677B5BAAE8ED4555613BD04D570A5182892C862D05E504DD1F9CCF4AC7A383B469DBD479524052D78211A60B5999C8FE4264";
+		String privateKeyStr = "MIIBNgIBADANBgkqhkiG9w0BAQEFAASCASAwggEcAgEAAoGBALqdTLYyG5+oVriNj+ouSTyUEa9hA6lyzMmGG6hxItegJQj8NQTH0yXhHBAh12+JR+JR2Kq26S5wgFL/acQS/zgTV9HpEQH2EVF7nwagZXJ+enYN/kFBe71i2bt+c5gTfiEPcPGM5lAU4pp0wGVtaPUH4BC3xkYXzkPMHYg17lgVAgEAAoGAIEx/bX1ouI57S//8a6zNMjXyhadF6fsbpLmYaeQDAs0N++sjBgvL6N94avZggkaBcZN2670yyL3iB/t7A9vB3lfMZZ2BJYdRR5gvnxKEd8cpCY7yfNsnLOJqfvaqQHL1B1FdvwyRVm99vZ2bmXe6cgtrazCzfYRiRU2ZXskI2DUCAQACAQACAQACAQACAQA=";
+		RSAPrivateKey rpk = (RSAPrivateKey) RSAUtil.getPrivateKey(privateKeyStr);
+		System.out.println("rpk=" + rpk);
+		
+		String content = RSAUtil.decryptByPrivateKey(contentEnc, rpk);
+		System.out.println("Content=" + content);
+		/*
+		 rpk=sun.security.rsa.RSAPrivateKeyImpl@50fe8
+		 128
+		 Content=草泥马，日了狗了!!!
+		 */
 	}
 }
 

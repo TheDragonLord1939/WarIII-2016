@@ -31,7 +31,10 @@ public class DESUtil {
 	private static Logger log = Logger.getLogger(DESUtil.class);
 	
 	/**
-	 * <p>1.加密</p>
+	 * <p>
+	 * 1.加密
+	 * 注意：DES加密和解密过程中，密钥长度都必须是8的倍数
+	 * </p>
 	 */
 	public static byte[] encrypt(byte[] datasource, String password) {
 		try {
@@ -57,7 +60,10 @@ public class DESUtil {
 	}
 	
 	/**
-	 * <p>2.解密</p>
+	 * <p>
+	 * 2.解密
+	 * 注意：DES加密和解密过程中，密钥长度都必须是8的倍数
+	 * </p>
 	 */
 	public static byte[] decrypt(byte[] src, String password) {
 		try {

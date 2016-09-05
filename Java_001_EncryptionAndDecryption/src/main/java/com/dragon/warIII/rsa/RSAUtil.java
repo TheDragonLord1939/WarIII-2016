@@ -294,6 +294,7 @@ public class RSAUtil {
 			PKCS8EncodedKeySpec keySpec = new PKCS8EncodedKeySpec(keyBytes);
 			KeyFactory keyFactory = KeyFactory.getInstance("RSA");
 			PrivateKey privateKey = keyFactory.generatePrivate(keySpec);
+			return privateKey;
 		} catch (Exception e) {
 			log.error(
 					"RSAUtil.getPublicKey() error, cause by " + e.getMessage(),
