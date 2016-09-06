@@ -1,0 +1,13 @@
+package com.dragon.warIII.test.md5;
+
+import org.junit.Test;
+
+import com.dragon.warIII.md5.MD5Util;
+
+public class md5UtilTest {
+
+	@Test
+	public void testGetMD5() {
+		String strMd5 = MD5Util.getMD5("瀧爷");
+	}
+}

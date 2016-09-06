@@ -1,0 +1,26 @@
+package com.dragon.warIII.test.md5;
+
+import java.nio.charset.CharsetEncoder;
+
+import org.junit.Test;
+
+import sun.security.util.Length;
+
+import com.dragon.warIII.md5.MD5Util;
+
+public class md5UtilTest {
+
+	@Test
+	public void testGetMD5() {
+		String strMd5 = MD5Util.getMD5("瀧爷");
+		System.out.println("strMd5=" + strMd5);
+		System.out.println("length=" + strMd5.length());
+		
+		//strMd5=D3B7FDA5B4BEA99E321B9F07F0672EF8
+		//strMd5=D3B7FDA5B4BEA99E321B9F07F0672EF8
+//		length=32
+		
+//		strMd5=B5E0F0F766A77384BDDD8F1ACE290841
+//				length=32
+	}
+}
