@@ -1,0 +1,8 @@
+package com.dragon.warIII.certificate;
+
+public class CertificateUtil {
+
+	public static String encode() {
+		
+	}
+}

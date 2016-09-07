@@ -1,0 +1,35 @@
+package com.dragon.warIII.test.certificate;
+
+import org.junit.Ignore;
+import org.junit.Test;
+
+import com.dragon.warIII.certificate.CertificateUtil;
+
+public class CertificateUtilTest {
+	
+	@Ignore
+	@Test
+	public void testEncode() {
+		String source = "真他妈的日了狗了!!!";
+		String sourceEncoded = CertificateUtil.encode(source);
+		System.err.println("密文：" + sourceEncoded);
+		System.err.println("长度：" + sourceEncoded.length());
+		
+		/*		
+		 * 密文：UP3rN/f/THfkpICg3bZdyNpzkyVpTbyO36hiNqoKmVIWQSV/E3Lr9v4b+1sw0YAzL6xNiowqZiCRnyS3A68tRlteEcE5mfjk4vb12eJMguJfg1PhvV7D0uLMLPyDoeV9kFaQo9/n7az37PSeDexQzGIJ9rN5+tD9ZYyVGvxbXL2LVqrrbDjyxVMkMorJNn+Y66QPe29Omfk9+7NW+HoN1CM7yHAzO1xo04SR5KgxWs3RFSgDGEBdz+ORWIGvOqCmaeLUvoemiIk92M7dCUjnLbwM0c3GrRqyGyq307m4ZffUDwgctzG/ZkjcZ5EtuiIdK9hG2aWJTQ/GzpS4n4FbVg==
+		 * 长度：344
+		 */
+		
+	}
+	
+//	@Ignore
+	@Test
+	public void testDecrypt() {
+		String source = "etUUBF9CTPTzfa6C6ZzpsKGdICH4G6mDdamJ/Suh6PSrV3ACEjlcf74It82xiDou0KBZIPvsnmVY66F2huzqCXbGvFtM4oIqzS5q4E22t9BLI3di488Fbm1JSwyXATUd8cpDYA1iFnTvZC/ZtkMOM1gvz2ZkKhx2CpopZcDjVtF5kTW1feu5jXSemmgC+SnDhLLTCgOq/VtyeZGR1NRnGHU/0WtL1krE8h6rR0iwtYDZdQg447AbxEP2AokRipNsz21QCs9l/zp6kJx8Q/HHLwEEyxKFunZI+ZQW9HlRxtyAzab50u5dYVuOynRVdiNRcD8QRTVs8ZcUQJcaXwto1Q==";
+		String sourceDecrypted = CertificateUtil.decrypt(source);
+		System.out.println("解密后的明文：" + sourceDecrypted);
+		/*
+         * 解密后的明文：真他妈的日了狗了!!!
+		 */
+	}
+}

@@ -1,0 +1,125 @@
+package com.dragon.warIII.certificate;
+
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
+import java.nio.charset.StandardCharsets;
+import java.security.InvalidKeyException;
+import java.security.KeyStore;
+import java.security.KeyStoreException;
+import java.security.NoSuchAlgorithmException;
+import java.security.NoSuchProviderException;
+import java.security.PrivateKey;
+import java.security.PublicKey;
+import java.security.cert.Certificate;
+import java.security.cert.CertificateException;
+import java.security.cert.CertificateFactory;
+
+import javax.crypto.BadPaddingException;
+import javax.crypto.Cipher;
+import javax.crypto.IllegalBlockSizeException;
+import javax.crypto.NoSuchPaddingException;
+
+import org.apache.log4j.Logger;
+
+import com.dragon.warIII.base64.Base64Util;
+import com.dragon.warIII.rsa.RSAUtil;
+
+/**
+ * @description 功能描述: 证书加密工具类
+ * @author 作 者: L.D
+ * @createdate 建立日期：2016-9-7
+ * @projectname 项目名称: Java_001_EncryptionAndDecryption
+ * @packageclass 包及类名: com.dragon.warIII.certificate  CertificateUtil.java
+ */
+public class CertificateUtil {
+	
+	private static Logger logger = Logger.getLogger(CertificateUtil.class);
+	
+	private static String KEYALIAS = "test1";
+	
+	private static String CERTIFICATE_PATH = null;
+	private static String KEYSTORE_PATH = null;
+	private static String KEYSTORE_PASSWORD = "123456789";
+	
+	static {
+		CERTIFICATE_PATH = Thread.currentThread().getContextClassLoader()
+				.getResource("certificate/M007.crt").getPath();
+		System.out.println("CERTIFICATE_PATH=" + CERTIFICATE_PATH);
+		KEYSTORE_PATH = Thread.currentThread().getContextClassLoader()
+				.getResource("certificate/M007.jks").getPath();
+	}
+	
+	/**
+	 * <p>1.加密</p>
+	 */
+	public static String encode(String source) {
+		 try {
+			//1.加载证书(证书格式为X509)
+			CertificateFactory certificateFactory = CertificateFactory.getInstance("X.509");
+			//2.读取证书文件的输入流
+			InputStream certin = new FileInputStream(CERTIFICATE_PATH);
+			Certificate certificate = certificateFactory.generateCertificate(certin);
+			//3.从证书中得到公钥
+			PublicKey publicKey = certificate.getPublicKey();
+			//4.加密
+			Cipher cipher = Cipher.getInstance("RSA");
+			cipher.init(Cipher.ENCRYPT_MODE, publicKey);
+			byte[] cipherByte = cipher.doFinal(source.getBytes(StandardCharsets.UTF_8));
+			//[22, -113, -104, 106, 92, 34, -11, -56, -116, 40, -68, 33, -67, 18, 85, 90, 67, -6, 43, -74, -97, -47, -83, 72, 117, -35, 66, -48, 7, 117, 91, -83, 89, -78, 104, -31, -45, 33, 12, 67, -123, 122, -71, -77, -111, -66, -69, 123, -124, 114, -106, 21, 96, -95, -14, 4, 49, 74, 58, -126, -83, -33, -34, 88, 97, -109, 64, -122, 89, 68, -82, 111, -7, -69, -10, 55, -29, -88, -95, 62, 56, -5, 62, -128, -9, 80, 55, -42, -52, -3, -4, 78, -69, 45, -124, 37, 91, 26, 16, 127, -121, 106, -96, -54, -56, 39, -87, -50, 102, 54, 83, -80, 45, 64, -82, -115, 75, -12, 96, 58, 59, 79, -77, 39, 60, -93, -127, -39, 95, 105, -99, -35, -50, -61, -11, 83, 6, -77, -36, 19, -69, 81, -87, 17, -50, 96, -64, 118, 41, 115, 77, 117, -87, -51, -87, -60, 111, 18, 122, 34, 38, 32, 39, 99, -80, 69, -62, 48, 63, -84, -61, 70, 79, -46, 54, 22, -76, -38, -88, 84, -39, 97, -42, -34, 27, -113, 78, -115, -2, 81, 1, -46, -71, -27, 38, -4, -70, 47, 40, 38, 98, 45, -57, -110, 64, 123, -44, 84, -99, -8, -52, -88, 83, 57, 92, -93, 11, 27, 44, -126, 106, -61, 5, 49, 115, 85, 3, -47, 19, 33, 127, 96, 39, -103, -87, 73, 37, -4, -81, -67, 51, -8, -119, -22, 109, -30, -120, 86, -111, -110, 101, -22, 46, 77, 49, -50]
+			String encodeSource = Base64Util.encode(cipherByte);
+			return encodeSource;
+		} catch (Exception e) {
+			logger.error("CertificateUtil.encode() error, cause by " + e.getMessage(), e);
+			e.printStackTrace();
+		}
+		 return null;
+	}
+	
+	/**
+	 * <p>2.解密</p>
+	 */
+	public static String decrypt(String source) {
+		
+		try {
+			//1.根据秘钥库类型JKS得到秘钥库实例
+			KeyStore keyStore = KeyStore.getInstance("JKS", "SUN");
+			InputStream is = new FileInputStream(KEYSTORE_PATH);
+			keyStore.load(is, KEYSTORE_PASSWORD.toCharArray());
+			
+			//2.根据alias从keystore中读取秘钥对
+			PrivateKey privateKey = null;
+			if (keyStore.isKeyEntry(KEYALIAS)) {
+				privateKey = (PrivateKey) keyStore.getKey(KEYALIAS, KEYSTORE_PASSWORD.toCharArray());
+			}
+			
+			//3.
+			Cipher cipher = Cipher.getInstance("RSA");
+			cipher.init(Cipher.DECRYPT_MODE, privateKey);
+			byte[] decryptByte = cipher.doFinal(Base64Util.decodee(source
+					.getBytes(StandardCharsets.UTF_8)));
+			return Base64Util.encode(decryptByte);
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} 
+		return null;
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

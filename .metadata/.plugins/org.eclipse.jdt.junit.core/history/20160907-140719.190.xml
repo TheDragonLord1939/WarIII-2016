@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testrun name="CertificateUtilTest" project="Java_001_EncryptionAndDecryption" tests="1" started="1" failures="0" errors="0" ignored="0">
+  <testsuite name="com.dragon.warIII.test.certificate.CertificateUtilTest" time="0.622">
+    <testcase name="testEncode" classname="com.dragon.warIII.test.certificate.CertificateUtilTest" time="0.622"/>
+  </testsuite>
+</testrun>

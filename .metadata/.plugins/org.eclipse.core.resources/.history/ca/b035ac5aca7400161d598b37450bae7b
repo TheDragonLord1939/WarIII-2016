@@ -1,0 +1,34 @@
+package com.dragon.warIII.test.certificate;
+
+import org.junit.Ignore;
+import org.junit.Test;
+
+import com.dragon.warIII.certificate.CertificateUtil;
+
+public class CertificateUtilTest {
+	
+//	@Ignore
+	@Test
+	public void testEncode() {
+		String source = "真他妈的日了狗了!!!";
+		String sourceEncoded = CertificateUtil.encode(source);
+		System.err.println("密文：" + sourceEncoded);
+		System.err.println("长度：" + sourceEncoded.length());
+		
+		/*
+		//[22, -113, -104, 106, 92, 34, -11, -56, -116, 40, -68, 33, -67, 18, 85, 90, 67, -6, 43, -74, -97, -47, -83, 72, 117, -35, 66, -48, 7, 117, 91, -83, 89, -78, 104, -31, -45, 33, 12, 67, -123, 122, -71, -77, -111, -66, -69, 123, -124, 114, -106, 21, 96, -95, -14, 4, 49, 74, 58, -126, -83, -33, -34, 88, 97, -109, 64, -122, 89, 68, -82, 111, -7, -69, -10, 55, -29, -88, -95, 62, 56, -5, 62, -128, -9, 80, 55, -42, -52, -3, -4, 78, -69, 45, -124, 37, 91, 26, 16, 127, -121, 106, -96, -54, -56, 39, -87, -50, 102, 54, 83, -80, 45, 64, -82, -115, 75, -12, 96, 58, 59, 79, -77, 39, 60, -93, -127, -39, 95, 105, -99, -35, -50, -61, -11, 83, 6, -77, -36, 19, -69, 81, -87, 17, -50, 96, -64, 118, 41, 115, 77, 117, -87, -51, -87, -60, 111, 18, 122, 34, 38, 32, 39, 99, -80, 69, -62, 48, 63, -84, -61, 70, 79, -46, 54, 22, -76, -38, -88, 84, -39, 97, -42, -34, 27, -113, 78, -115, -2, 81, 1, -46, -71, -27, 38, -4, -70, 47, 40, 38, 98, 45, -57, -110, 64, 123, -44, 84, -99, -8, -52, -88, 83, 57, 92, -93, 11, 27, 44, -126, 106, -61, 5, 49, 115, 85, 3, -47, 19, 33, 127, 96, 39, -103, -87, 73, 37, -4, -81, -67, 51, -8, -119, -22, 109, -30, -120, 86, -111, -110, 101, -22, 46, 77, 49, -50]
+		CERTIFICATE_PATH=/E:/Java/WarIII-2016/Java_001_EncryptionAndDecryption/target/classes/certificate/M007.crt
+		密文：Fo+Yalwi9ciMKLwhvRJVWkP6K7af0a1Idd1C0Ad1W61Zsmjh0yEMQ4V6ubORvrt7hHKWFWCh8gQxSjqCrd/eWGGTQIZZRK5v+bv2N+OooT44+z6A91A31sz9/E67LYQlWxoQf4dqoMrIJ6nOZjZTsC1Aro1L9GA6O0+zJzyjgdlfaZ3dzsP1Uwaz3BO7UakRzmDAdilzTXWpzanEbxJ6IiYgJ2OwRcIwP6zDRk/SNha02qhU2WHW3huPTo3+UQHSueUm/LovKCZiLceSQHvUVJ34zKhTOVyjCxssgmrDBTFzVQPREyF/YCeZqUkl/K+9M/iJ6m3iiFaRkmXqLk0xzg==
+		长度：344
+		 */
+	}
+	
+	@Ignore
+	@Test
+	public void testDecrypt() {
+		String source = "HV0fZEoW1pGKP65O5sLqNGcZuXTdxvBY5ma58J6qAIK3XE1PuD5jWD/OVZs3Hc1oFkSLPS+Kje2ny7PKeEc3qjy+FsaQBXq1kxggXy2ARvaToHBPq0Wt3QOEqW/DWZcNNRXtBZ+C3iKnO6PPNmjIFqE1sJsy1BGYw3dNL7eQgG8VNyb+T2JdY3bfbrnI/pOJNpml+jucn/adHc1rRNWcPLrS34me+QzXBbkZQxNixxKU/tTXPG3nWK5/sHBwEZJJzkAaC0JLexdDse2E2KfFk8oOd/JGByehs11GWEIfdMgfHodekIFbje/0rf6GrsluQo45Lf6izW7fX5QmN9qygw==";
+		String sourceDecrypted = CertificateUtil.decrypt(source);
+		System.out.println("解密后的明文：" + sourceDecrypted);
+		//55yf5LuW5aaI55qE5pel5LqG54uX5LqGISEh
+	}
+}

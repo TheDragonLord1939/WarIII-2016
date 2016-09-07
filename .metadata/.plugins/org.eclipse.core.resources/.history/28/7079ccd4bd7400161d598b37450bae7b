@@ -1,0 +1,32 @@
+package com.dragon.warIII.certificate;
+
+import java.security.KeyStore;
+import java.security.KeyStoreException;
+import java.security.NoSuchProviderException;
+
+/**
+ * @description 功能描述: 证书加密工具类
+ * @author 作 者: L.D
+ * @createdate 建立日期：2016-9-7
+ * @projectname 项目名称: Java_001_EncryptionAndDecryption
+ * @packageclass 包及类名: com.dragon.warIII.certificate  CertificateUtil.java
+ */
+public class CertificateUtil {
+
+	/**
+	 * <p>1.加密</p>
+	 */
+	public static String encode(String source) {
+		//1.根据秘钥库类型JKS得到秘钥库实例
+		try {
+			KeyStore keyStore = KeyStore.getInstance("JKS", "SUN");
+		} catch (KeyStoreException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (NoSuchProviderException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
+	}
+}

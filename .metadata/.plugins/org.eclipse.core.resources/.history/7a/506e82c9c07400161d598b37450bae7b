@@ -1,0 +1,11 @@
+package com.dragon.warIII.test.certificate;
+
+import org.junit.Test;
+
+public class CertificateUtilTest {
+	
+	@Test
+	public void testEncode() {
+		
+	}
+}

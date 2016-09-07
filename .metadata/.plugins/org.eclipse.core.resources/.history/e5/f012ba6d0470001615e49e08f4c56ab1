@@ -1,0 +1,33 @@
+package com.dragon.warIII.test.des;
+
+import java.nio.charset.StandardCharsets;
+
+import org.junit.Ignore;
+import org.junit.Test;
+
+import com.dragon.warIII.base64.Base64Util;
+import com.dragon.warIII.des.DESUtil;
+
+public class DESUtilTest {
+
+	@Test
+	public void encryptTest() {
+//		String str = "REQSERIAL=001&CUSTARGNO=001&MERCHANTNO=N3713585&MOBILE=15068821597";
+		String str = "你好";
+		String key = "Q5sJtidC";
+		System.out.println(key.length());
+		byte[] arr = DESUtil.encrypt(str.getBytes(StandardCharsets.UTF_8), key);
+		System.out.println(Base64Util.encode(arr));
+		//ycwKoM3jhsKPgukslKqjRQ+k9Fh9ZvdijZMhJ96gq91CsBZTu1RbfVAd8/2Q6NMIcPjdsaWxmEUQNw40G4lrWH5nA30SHMxn
+		//ycwKoM3jhsKPgukslKqjRQ+k9Fh9ZvdijZMhJ96gq91CsBZTu1RbfVAd8/2Q6NMIcPjdsaWxmEUQNw40G4lrWH5nA30SHMxn
+		//xXFivZ7VEo8=
+	}
+	
+//	@Test
+	public void decryptTest() {
+		String str = "SyO0aWkliTo=";
+		String key = "7777777777777777";
+		byte[] src =  Base64Util.decode(str.getBytes(StandardCharsets.UTF_8)).getBytes();
+		System.out.println(DESUtil.decrypt(src, key));
+	}
+}

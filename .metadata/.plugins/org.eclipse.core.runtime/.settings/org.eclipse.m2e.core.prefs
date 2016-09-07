@@ -1,4 +1,5 @@
 eclipse.m2.defaultRuntime=E\:\\Java\\apache-maven-3.1.0
+eclipse.m2.downloadSources=true
 eclipse.m2.globalSettingsFile=E\:\\Java\\apache-maven-3.1.0\\conf\\settings.xml
 eclipse.m2.runtimes=E\:\\Java\\apache-maven-3.1.0
 eclipse.m2.userSettingsFile=E\:\\Java\\apache-maven-3.1.0\\conf\\settings.xml

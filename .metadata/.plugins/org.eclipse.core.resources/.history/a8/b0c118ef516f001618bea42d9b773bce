@@ -1,8 +1,0 @@
-package com.dragon.warIII.md5;
-
-public class MD5Util {
-
-	public static String getMD5(String message) {
-		return null;
-	}
-}
