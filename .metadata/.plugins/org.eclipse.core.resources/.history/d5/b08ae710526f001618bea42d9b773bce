@@ -1,0 +1,15 @@
+package com.dragon.warIII.md5;
+
+/**
+ * @description 功能描述: MD5工具类
+ * @author 作 者: L.D
+ * @createdate 建立日期：2016-8-31
+ * @projectname 项目名称: Java_001_EncryptionAndDecryption
+ * @packageclass 包及类名: com.dragon.warIII.md5  MD5Util.java
+ */
+public class MD5Util {
+
+	public static String getMD5(String message) {
+		return null;
+	}
+}
