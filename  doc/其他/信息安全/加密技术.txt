@@ -9,6 +9,24 @@
 这串二进制，然后再把这串二进制转化成 “ZG0abd12" 的BASE64 编码。
 （上面的UTF8和BASE64表示都是举例）
 著作权归作者所有，转载请联系作者获得授权。
+*应用：
+	1.招行传输返回报文中BASE64编码中的+可能会被转换成空格，需要将收到的报文中的空格还原成+  
+		String signData = (String)retParams.get("SIGDAT").replaceAll(" ", "+");
+		mySignParams.put("BUSDAT", (String)retParams.get("BUSDAT").replaceAll(" ", "+"));	//5.业务数据包
+		String BUSDAT = new String(com.cmb.b2b.Base64.decode(retParams.get("BUSDAT").toString().replaceAll(" ","+")), "utf-8");
+	2.招行单独签约接口,向银行发送的签名数据用base64编码了一下,编码后要去掉换行符和回车
+	    原因： 2.1.base64.encodestring返回的字符串默认结尾带"\n",而且产生的base64编码字符串每76个字符就会用"\n"隔开,所以最安全的方法不是strip去掉结尾的\n,而是用replace去掉其中所有的\n.
+	                为啥base64.ecodestring每76字符就换行,这个是mime协议的规定,用于email发送,具体查看mime协议吧.
+	        2.2.谷歌了一下,原来是RFC2045中有规定: The encoded output stream must be represented in lines of no more than 76 characters each.Base64一行不能超过76字符,超过则添加回车换行符.
+			结合前面博客说的"有回车符,导致JSON格式不符合要求",那就明白了,对附件进行Base64编码,因为超过76字节,所以要添加回车换行符,后台解析带有回车换行符的JSON字符串就出现“ net.sf.json.JSONException : Unterminated string ”。
+			问题根源就是回车换行符,那删除就行了,谷歌后又发现一问题,原来“回车换行符（\r\n）”是在Windows才有,而Linux只有换行（\n）,Mac只有回车（\r）.再搜索了一下找到了解决办法，调用字符串对象的replaceAll方法替换掉\r和\n，代码如下：
+			字符串对象.replaceAll("\r|\n", ""),这样就兼容了不同平台.
+	BASE64Encoder base64Encoder = new BASE64Encoder();
+	sign = base64Encoder.encode(baCiphertext);
+	sign = sign.replaceAll("\r|\n", "");//加密后需要去换行符一下
+	proParams.put("SIGN", sign);//12.DES加密后的密文
+	3.招行解约接口
+	String BUSDAT = createBusdatWithBase64(reqParams.get("customers_id").toString(), reqNo);//5.业务数据包,报文数据必须经过base64编码.
 
 2.MD5(加密:无秘钥)
 * Message Digest Algorithm MD5（中文名为消息摘要算法第五版）为计算机安全领域广泛使用的一种散列函数,用以提供消息的完整性保护.
@@ -28,14 +46,18 @@
 * 来自 RFC 1321 的解释 - MD5 报文摘要算法：MD5 报文摘要算法将任意长度的信息作为输入值，并将其换算成一个 128 位长度的"指纹信息"或"报文摘要"值来代表这个
 输入值，并以换算后的值作为结果。MD5 算法主要是为数字签名应用程序而设计的；在这个数字签名应用程序中，较大的文件将在加密（这里的加密过程是通过在一个密码
 系统下[如：RSA]的公开密钥下设置私有密钥而完成的）之前以一种安全的方式进行压缩。
+*项目应用：
+	1.发送post请求时的参数签名
 
 3.DES(加密/解密)(对称加密)
 * DES全称为Data Encryption Standard，即数据加密标准，是一种使用密钥加密的块算法，1977年被美国联邦政府的国家标准局确定为联邦资料处理标准（FIPS），并授权
 在非密级政府通信中使用，随后该算法在国际上广泛流传开来。需要注意的是，在某些文献中，作为算法的DES称为数据加密算法（Data Encryption Algorithm,DSA），已与作为标准的DES区分开来。
 * DES算法入口参数
 DES算法的入口参数有三个:Key、Data、Mode。其中Key为7个字节共56位,是DES算法的工作密钥;Data为8个字节64位,是要被加密或被解密的数据;Mode为DES的工作方式,有两种:加密或解密。
+* 应用：
+	1.招行单独签约接口,向银行发送请求数据时用DES加密生成签名.
 
-4.RSA(加密/解密)(非对称加密:私钥和公钥)
+4.RSA(加密/解密)(非对称加密:私钥和公钥)   (签名/验签)
 * RSA公钥加密算法是1977年由罗纳德·李维斯特（Ron Rivest）、阿迪·萨莫尔（Adi Shamir）和伦纳德·阿德曼（Leonard Adleman）一起提出的。1987年首次公布，当时他们三人都在麻省理工学院工作。
 RSA就是他们三人姓氏开头字母拼在一起组成的。
 * RSA是目前最有影响力的公钥加密算法，它能够抵抗到目前为止已知的绝大多数密码攻击，已被ISO推荐为公钥数据加密标准。
@@ -46,6 +68,10 @@ RSA加密安全性受到了挑战。
 * 正是基于这种理论，1978年出现了著名的RSA算法，它通常是先生成一对RSA 密钥，其中之一是保密密钥，由用户保存；另一个为公开密钥，可对外公开，甚至可在网络服务器中注册。为提高保密强度，RSA密钥至少为500位长，一般推荐使用1024位。
 这就使加密的计算量很大。为减少计算量，在传送信息时，常采用传统加密方法与公开密钥加密方法相结合的方式，即信息采用改进的DES或IDEA对话密钥加密，然后使用RSA密钥加密对话密钥和信息摘要。对方收到信息后，用不同的密钥解密并可核对信息摘要。
 * RSA算法是第一个能同时用于加密和数字签名的算法，也易于理解和操作。RSA是被研究得最广泛的公钥算法，从提出到现今的三十多年里，经历了各种攻击的考验，逐渐为人们接受，普遍认为是目前最优秀的公钥方案之一。
+* 应用:
+	1.招商银行支付协议开通通知回调接口,银行返回的参数使用RSA生成签名, 我们用银行的网银公钥验签.(公钥是从网银下载的.)
+	2.招行银行支付异步回调通知接口,银行返回的参数使用RSA生成签名，我们用银行提供的Public.key验签.
+	3.招商银行支付协议解约接口,银行返回的参数使用RSA生成签名,我们使用银行的网银公钥验证签名.(和1是一样的公钥)
 
 5.数字证书
 * 数字摘要:数字摘要就是采用单项Hash函数将需要加密的明文“摘要”成一串固定长度（128位）的密文,这一串密文又称为数字指纹,HASH值或摘要值,它有固定的长度,而且不同的明文摘要成密文,其结果总是不同的,而同样的明文其摘要必定一致.目前常用的
@@ -96,8 +122,11 @@ keytool常用命令:
 	-import 	将已签名数字证书导入密钥库 
 制作证书:
 	 --http://www.cnblogs.com/xdp-gacl/p/3750965.html
-	 
-6.ATM ATM
+* 应用：
+	1.招行解约接口：用我生成的证书私钥加密参数,发送给银行.证书上传到银行.
+		String SIGDAT = CMBPayCore.createSignDateWithBankAPI(ParamUtil.createLinkStringWithPutOrder(signMap, ""));//7.签名数据 ,用银行API生成
+		
+6.SHA
 		
 
 

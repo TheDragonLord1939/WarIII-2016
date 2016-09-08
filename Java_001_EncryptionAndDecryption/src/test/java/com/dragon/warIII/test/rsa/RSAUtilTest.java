@@ -101,7 +101,7 @@ public class RSAUtilTest {
 		System.out.println("contentEnc=" + contentEnc);
 	}
 	
-	
+	@Ignore
 	@Test 
 	public void testVerify() {
 		//3.获取银行传过来的数据,用私钥解密,获取商户数据明文
@@ -118,6 +118,33 @@ public class RSAUtilTest {
 		 128
 		 Content=草泥马，日了狗了!!!
 		 */
+	}
+	
+	
+	/**
+	 * 签名
+	 */
+	@Ignore
+	@Test
+	public void testSign() {
+		String privateKeyStr = "MIIBNgIBADANBgkqhkiG9w0BAQEFAASCASAwggEcAgEAAoGBALRk4/LfKrLw4D4pWjNbMJQmVMlar0MOC3Q0EM1IxRUtpvAsU4gQCIdiPB8UuunnlZJTSVsgZyBasEXl2UWl02BE3R6qZfJsO+6UZk+rv7AvwtSMuc0esZ0gh+5g+LAqlm7OJvqGvs4KycAMkzmWTzrOGeWwCvyRtsEOFOfXPNQnAgEAAoGAIUaPCckCvllSdAT6v4htsJZVg4L3212m3TuRcdyfhiWSqrDyg6G5gQes4WrYg7cVTxWP7YBPpZc09t/MMV3CXKtAXbeFFcCOhfsFYQJMuvuaU5HfVL5M1LK/BSO+JemvZdYnj2JXDMfwqhYfuL+LYHd2vVS5CU3N5yiN7pizy1kCAQACAQACAQACAQACAQA=";
+		String source = "草泥马，日了狗了!!!";
+		String signStr = RSAUtil.sign(RSAUtil.getPrivateKey(privateKeyStr), source);
+		System.out.println("signStr=" + signStr);
+		//signStr=QvFaZ2J70QryV3Djrd6CPTtV3vIkvjAqGlykNG5AAImy0czgI0axZwUZyjTrFzsGpSAUMuVwMQENDE/vQodVFyFzMwGEZxB9u/2Rd+z9Tywtb4Rnk8symjHr2IclyteMXT5qdvZ7KN/n4iQPOYZ+J4OLnrVHF+ylzJmLIqLafAw=
+	}
+	
+	/**
+	 * 验签
+	 */
+	@Ignore
+	@Test 
+	public void testVerifyy() {
+		String signStr = "QvFaZ2J70QryV3Djrd6CPTtV3vIkvjAqGlykNG5AAImy0czgI0axZwUZyjTrFzsGpSAUMuVwMQENDE/vQodVFyFzMwGEZxB9u/2Rd+z9Tywtb4Rnk8symjHr2IclyteMXT5qdvZ7KN/n4iQPOYZ+J4OLnrVHF+ylzJmLIqLafAw=";
+		String publicKeyStr = "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQC0ZOPy3yqy8OA+KVozWzCUJlTJWq9DDgt0NBDNSMUVLabwLFOIEAiHYjwfFLrp55WSU0lbIGcgWrBF5dlFpdNgRN0eqmXybDvulGZPq7+wL8LUjLnNHrGdIIfuYPiwKpZuzib6hr7OCsnADJM5lk86zhnlsAr8kbbBDhTn1zzUJwIDAQAB";
+		String source = "草泥马，日了狗了!!!";
+		boolean flag = RSAUtil.verify(RSAUtil.getPublicKey(publicKeyStr), source, signStr);
+		System.out.println("flag= " + flag);
 	}
 }
 

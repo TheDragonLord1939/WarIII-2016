@@ -8,6 +8,7 @@ import java.security.KeyPair;
 import java.security.KeyPairGenerator;
 import java.security.PrivateKey;
 import java.security.PublicKey;
+import java.security.Signature;
 import java.security.interfaces.RSAPrivateKey;
 import java.security.interfaces.RSAPublicKey;
 import java.security.spec.PKCS8EncodedKeySpec;
@@ -35,6 +36,8 @@ import sun.security.util.BigInt;
 public class RSAUtil {
 
 	private static final Logger log = Logger.getLogger(RSAUtil.class);
+	
+	private static String SignAlg = "SHA1WithRSA";
 
 	/**
 	 * <p>1.生成公钥和私钥</p>
@@ -311,6 +314,54 @@ public class RSAUtil {
     	byte[] keyBytes = key.getEncoded();
     	String s = Base64Util.encode(keyBytes);
     	return s;
+    }
+    
+    /**
+     * <p>
+     * 9.RSA签名
+     * @param key 私钥
+     * @param source 签名数据
+     * @return
+     * </p>
+     */
+    public static String sign(PrivateKey privateKey, String source) {
+    	try {
+    		Signature signature = Signature.getInstance(SignAlg);
+    		signature.initSign(privateKey);
+    		signature.update(source.getBytes(StandardCharsets.UTF_8));
+    		byte[] signByte = signature.sign();
+    		return Base64Util.encode(signByte);
+		} catch (Exception e) {
+			log.error(
+					"RSAUtil.sign() error, cause by " + e.getMessage(),
+					e);
+			e.printStackTrace();
+		}
+    	return null;
+    }
+    
+    /**
+     * <p>
+     * 10.验签
+     * @param publicKey 公钥
+     * @param source 待签名数据
+     * @param sign 签名值
+     * </p>
+     */
+    public static boolean verify(PublicKey publicKey, String source, String sign) {
+    	try {
+			Signature signature = Signature.getInstance(SignAlg);
+			signature.initVerify(publicKey);
+			signature.update(source.getBytes(StandardCharsets.UTF_8));
+			boolean verified = signature.verify(Base64Util.decodee(sign.getBytes(StandardCharsets.UTF_8)));
+			return verified;
+		} catch (Exception e) {
+			log.error(
+					"RSAUtil.verify() error, cause by " + e.getMessage(),
+					e);
+			e.printStackTrace();
+		}
+    	return false;
     }
     
 }
