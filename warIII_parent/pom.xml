@@ -52,7 +52,12 @@
 		<!-- httpclient -->
 		<httpclient.version>4.4.1</httpclient.version>
 		<httpcore.version>4.4.1</httpcore.version>
-		
+		<lucene.ikanalyzer>2012_u6</lucene.ikanalyzer>
+		<!-- POI -->
+		<poi.version>3.14</poi.version>
+		<poi-scratchpad.version>3.14</poi-scratchpad.version>
+		<!-- JXL -->
+		<jxl.version>2.6.12</jxl.version>
 	</properties>
 
 	<dependencies>
@@ -273,6 +278,11 @@
 			<artifactId>lucene-queryparser</artifactId>
 			<version>${lucene.version}</version>
 		</dependency>
+		<dependency>
+		    <groupId>com.janeluo</groupId>
+		    <artifactId>ikanalyzer</artifactId>
+		    <version>${lucene.ikanalyzer}</version>
+		</dependency>
 
 		<!-- HttpClient -->
 		<dependency>
@@ -285,6 +295,28 @@
 			<artifactId>httpcore</artifactId>
 			<version>${httpcore.version}</version>
 		</dependency>
+		
+		<!-- POI -->
+		<!-- Apache POI - Java API To Access Microsoft Format Files  -->
+		<dependency>
+		    <groupId>org.apache.poi</groupId>
+		    <artifactId>poi</artifactId>
+		    <version>${poi.version}</version>
+		</dependency>
+		<dependency>
+		    <groupId>org.apache.poi</groupId>
+		    <artifactId>poi-scratchpad</artifactId>
+		    <version>${poi-scratchpad.version}</version>
+		</dependency>
+		<!-- JXL -->
+		<dependency>
+		    <groupId>net.sourceforge.jexcelapi</groupId>
+		    <artifactId>jxl</artifactId>
+		    <version>${jxl.version}</version>
+		</dependency>
+		
+		
+		
 	</dependencies>
 
 	<build>

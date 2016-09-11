@@ -1,4 +1,4 @@
-package com.dragon.warIII.search;
+package com.dragon.warIII.search.lucene;
 
 import java.io.File;
 import java.io.IOException;
@@ -12,6 +12,7 @@ import org.apache.lucene.queryparser.classic.QueryParser;
 import org.apache.lucene.search.IndexSearcher;
 import org.apache.lucene.search.Query;
 import org.apache.lucene.search.ScoreDoc;
+import org.apache.lucene.search.TopDocs;
 import org.apache.lucene.store.Directory;
 import org.apache.lucene.store.FSDirectory;
 import org.apache.lucene.util.Version;
@@ -26,7 +27,7 @@ import org.apache.lucene.util.Version;
 public class IndexSearch {
 
 	public static void main(String[] args) {
-		//1.指定分词器
+		//1.指定分词器(需要和创建索引时使用的分词器是一样的.)
 		Analyzer analyzer = new StandardAnalyzer(Version.LUCENE_43);
 		
 		//2.打开索引存储位置.
@@ -34,30 +35,36 @@ public class IndexSearch {
 		DirectoryReader ireader= null;
 		try {
 			directory = FSDirectory.open(new File("D://Lucene/index/test"));
-			ireader = DirectoryReader.open(directory);
+			ireader = DirectoryReader.open(directory);	//用于读取硬盘上的索引文件
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 
 		//3.创建搜索器.
-		IndexSearcher isearcher = new IndexSearcher(ireader);
+		IndexSearcher isearcher = new IndexSearcher(ireader);	//提供了索引的检索方法
 		
 		//4.类似SQL,进行关键字查询.
-		QueryParser parser = new QueryParser(Version.LUCENE_43, "content", analyzer);
+		QueryParser parser = new QueryParser(Version.LUCENE_43, "content", analyzer);//主要用于对单个域进行搜索时,创建查询Query,要指定域名和分词方法.
 		Query query = null;
+		TopDocs topDocs = null;
 		ScoreDoc[] hits = null;
-		try {
-			query = parser.parse("开学");
+		try { 
+			query = parser.parse("开学");	//提供了查询条件的创建
 			
-			hits = isearcher.search(query, null, 1000).scoreDocs;
+			topDocs = isearcher.search(query, null, 1000);
 			
-			for (int i = 0; i < hits.length; i++) {
-				Document hitDoc = isearcher.doc(hits[i].doc);
-				System.out.println("$$$$$$$$$$$$$$$$$$$");
-				System.err.println(hitDoc.get("id"));
-				System.err.println(hitDoc.get("content"));
-				System.err.println(hitDoc.get("num"));
-				System.out.println("$$$$$$$$$$$$$$$$$$$");
+			hits = topDocs.scoreDocs;
+			
+			if (topDocs != null) {
+				System.out.println("符合条件的文档总数为: " + topDocs.totalHits);
+				
+				for (int i = 0; i < hits.length; i++) {
+					System.out.println("-----------------------------");
+					Document hitDoc = isearcher.doc(hits[i].doc);
+					System.out.println("id= " + hitDoc.get("id"));
+					System.out.println("content= " + hitDoc.get("content"));
+					System.out.println("num= " + hitDoc.get("num"));
+				}
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -78,18 +85,24 @@ public class IndexSearch {
 				}
 			}
 		}
-		
+		System.out.println("-----------------------------");
 		System.out.println("search index end.");
 		
 		/*		
-			abcde
-			极客学院
-			1
-			asdff
-			Lucene案例开发
-			2
+			符合条件的文档总数为: 2
+			-----------------------------
+			id= abcde
+			content= 极客学院
+			num= 1
+			-----------------------------
+			id= asdff
+			content= Lucene案例开发
+			num= 2
+			-----------------------------
+			search index end.
 		*/
 	}
+	
 }
 
 

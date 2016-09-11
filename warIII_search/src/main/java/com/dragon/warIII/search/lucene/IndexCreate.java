@@ -1,4 +1,4 @@
-package com.dragon.warIII.search;
+package com.dragon.warIII.search.lucene;
 
 import java.io.File;
 import java.io.IOException;
@@ -47,7 +47,7 @@ public class IndexCreate {
 		//3.3.创建IndexWriter对象
 		IndexWriter indexWriter = null;
 		try {
-			if (IndexWriter.isLocked(directory)) {//判断是否被锁上
+			if (IndexWriter.isLocked(directory)) {//判断是否被锁上,如果锁上就解锁.
 				IndexWriter.unlock(directory);
 			}
 			indexWriter = new IndexWriter(directory, indexWriterConfig);
@@ -55,7 +55,7 @@ public class IndexCreate {
 			e.printStackTrace();
 		}
 		
-		//4.创建文档(Document类似一张表的一条数据,Field类似一行里面的一列)
+		//4.创建文档(注意:Document类似一张表的一条数据,Field类似一行里面的一列)
 		Document doc1 = new Document();
 		doc1.add(new StringField("id", "abcde", Store.YES));//id域
 		doc1.add(new TextField("content", "极客学院", Store.YES));//文本域

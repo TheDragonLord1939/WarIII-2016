@@ -1,0 +1,19 @@
+1.简介
+*Solr是一个独立的企业级搜索应用服务器,它对外提供类似于Web-service的API接口.用户可以通过Http请求,向搜索引擎服务器提交一定格式的XML文件,生成索引;也可以通过Http Get操作提出
+查找请求,并得到XML格式的返回结果.
+*	中文名	企业级搜索应用服务器 
+	外文名    Solr 
+	类    型    计算机语言开发 
+	功    能    提供API接口 
+2.特点
+Solr是一个高性能,采用Java5开发,基于Lucene的全文搜索服务器.同时对其进行了扩展,提供了比Lucene更为丰富的查询语言,同时实现了可配置、可扩展并对查询性能进行了优化,并且提供了一个
+完善的功能管理界面,是一款非常优秀的全文搜索引擎.
+3.工作方式
+*文档通过Http利用XML加到一个搜索集合中.查询该集合也是通过Http收到一个XML/JSON响应来实现.它的主要特性包括:高效、灵活的缓存功能,垂直搜索功能,高亮显示搜索结果,通过索引复制来提高
+可用性,提供一套强大Data Schema来定义字段,类型和设置文本分析,提供基于Web的管理界面等.
+*Solr是基于Lucene Java搜索库的企业级全文搜索引擎,目前是apache的一个项目.它的官方网址在http://lucene.apache.org/solr/.Solr需要运行在一个Servlet容器里,例如tomcat5.5.Solr在lucene的
+上层提供了一个基于HTTP/XML的Web Services,我们的应用需要通过这个服务与solr进行交互.
+4.安装配置
+	1.在命令行选择希望在其中执行操作的目录,从中输入mkdir dw-solr.
+	2.将Solr下载版本复制到当前目录中并解压缩,即可得到 apache-solr-1.1.0-incubating目录.不用注意 incubating标记;Solr早已孵化成熟.
+	3.将Solr WAR文件复制到Servlet容器的Webapps目录中.
