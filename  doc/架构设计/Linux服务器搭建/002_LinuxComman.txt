@@ -24,3 +24,7 @@
 		ps -ef | grep 11211
 	2.3.查看端口是被哪个应用程序使用2
 		lsof -i:11211
+3.重启网卡
+	service network restart
+4.查看ip
+	ifconfig
