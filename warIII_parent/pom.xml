@@ -17,6 +17,7 @@
 		<module>../warIII_cache</module> 
 		-->
 		<module>../warIII_search</module>
+		<module>../warIII_solr</module>
 	</modules>
 
 	<properties>
@@ -58,6 +59,8 @@
 		<poi-scratchpad.version>3.14</poi-scratchpad.version>
 		<!-- JXL -->
 		<jxl.version>2.6.12</jxl.version>
+		<!-- Solr -->
+		<solr-solrj.version>6.2.0</solr-solrj.version>
 	</properties>
 
 	<dependencies>
@@ -309,10 +312,17 @@
 		    <version>${poi-scratchpad.version}</version>
 		</dependency>
 		<!-- JXL -->
-		<dependency>
+		<dependency> 
 		    <groupId>net.sourceforge.jexcelapi</groupId>
 		    <artifactId>jxl</artifactId>
 		    <version>${jxl.version}</version>
+		</dependency>
+		
+		<!-- Solr -->
+		<dependency>
+		    <groupId>org.apache.solr</groupId>
+		    <artifactId>solr-solrj</artifactId>
+		    <version>${solr-solrj.version}</version>
 		</dependency>
 		
 		

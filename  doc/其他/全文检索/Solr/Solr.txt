@@ -13,7 +13,5 @@ Solr是一个高性能,采用Java5开发,基于Lucene的全文搜索服务器.�
 可用性,提供一套强大Data Schema来定义字段,类型和设置文本分析,提供基于Web的管理界面等.
 *Solr是基于Lucene Java搜索库的企业级全文搜索引擎,目前是apache的一个项目.它的官方网址在http://lucene.apache.org/solr/.Solr需要运行在一个Servlet容器里,例如tomcat5.5.Solr在lucene的
 上层提供了一个基于HTTP/XML的Web Services,我们的应用需要通过这个服务与solr进行交互.
-4.安装配置
-	1.在命令行选择希望在其中执行操作的目录,从中输入mkdir dw-solr.
-	2.将Solr下载版本复制到当前目录中并解压缩,即可得到 apache-solr-1.1.0-incubating目录.不用注意 incubating标记;Solr早已孵化成熟.
-	3.将Solr WAR文件复制到Servlet容器的Webapps目录中.
+4.安装配置(Solr 6.0)
+	--参看Solr安装手顺.txt

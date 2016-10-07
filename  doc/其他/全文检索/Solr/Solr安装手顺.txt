@@ -1,0 +1,23 @@
+1.准备工作
+下载solr 6.2.0(目前最新版本6.2.0.)
+下载jdk1.8:jdk1.8【solr6.0是基于jdk8开发的】
+下载tomcat8.0
+(在说明搭建环境之前,其实solr5.0之后 solr已经内置jetty服务器,可以自行启动.但是为了加入自己的特性,以及在solr基础之上的应用,此文章主要针对发布在tomcat8上.)
+2.安装jdk8
+	--http://jingyan.baidu.com/article/48a42057f238a9a92425042c.html
+3.下载solr6.2.0后,解压solr6.2.0的包.
+4.解压tomcat8
+5.将【solr-6.2.0\server\solr-webapp】下的webapp文件拷贝到【apache-tomcat-8.0.33\webapps】目录下,并将webapp重命名为solr(可以重命名为取任意名称).
+6.将【solr-6.2.0\server\lib\ext】下的所有jar包拷贝到【apache-tomcat-8.0.33\webapps\solr\WEB-INF\lib】
+7.将【solr-6.2.0\server\resources】下的log4j.properties配置文件拷贝到【apache-tomcat-8.0.33\webapps\solr\WEB-INF\classes】,如果WEB-INF下没有classes文件那么就
+创建一个classes文件夹.
+8.在【apache-tomcat-8.0.33\webapps\solr】下新建一个文件【solrhome(文件夹名称可以任意命名)】,将【solr-6.0.0\server\solr】下的所有文件拷贝到刚刚创建的solrhome中.
+9.修改【apache-tomcat-8.0.33\webapps\solr\WEB-INF】下的web.xml，找到如下代码:
+	<env-entry>  
+	   <env-entry-name>solr/home</env-entry-name>  
+	   <env-entry-value>/put/your/solr/home/here</env-entry-value>  
+	   <env-entry-type>java.lang.String</env-entry-type>  
+	</env-entry> 
+	(默认是注解掉,放开注解,并将<env-entry-value>中的值修改为刚刚步骤8中的solrhome目录,如：E:\project\Search\apache-tomcat-8.0.33\webapps\solr\solrhome).
+10.运行tomcat,运行成功后访问:http://localhost:8080/solr/index.html即可得到进入Solr管理界面.看到这个管理界面那么整个solr的环境搭建已经成功.
+11.补充:dist目录下的solr-dataimporthandler-6.2.0.jar及solr-dataimporthandler-extras-6.2.0.jar也需要拷贝到【apache-tomcat-8.0.33\webapps\solr\WEB-INF\lib】.
