@@ -26,6 +26,7 @@
 		<com.dragon.warIII.warIII_service.version>0.0.1-SNAPSHOT</com.dragon.warIII.warIII_service.version>
 		<com.dragon.warIII.warIII_cache.version>0.0.1-SNAPSHOT</com.dragon.warIII.warIII_cache.version>
 		<com.dragon.warIII.warIII_search.version>0.0.1-SNAPSHOT</com.dragon.warIII.warIII_search.version>
+		<com.dragon.warIII.warIII_solr.version>0.0.1-SNAPSHOT</com.dragon.warIII.warIII_solr.version>
 		<!-- Spring版本号 -->
 		<spring.version>4.1.6.RELEASE</spring.version>
 		<!-- Spring-MyBatis -->

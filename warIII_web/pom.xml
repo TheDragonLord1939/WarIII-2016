@@ -30,6 +30,11 @@
 			<artifactId>warIII_service</artifactId>
 			<version>${com.dragon.warIII.warIII_service.version}</version>
 		</dependency> 
+		<dependency>
+			<groupId>com.dragon.warIII</groupId>
+			<artifactId>warIII_solr</artifactId>
+			<version>${com.dragon.warIII.warIII_solr.version}</version>
+		</dependency> 
 		<!-- 		
 		<dependency>
 			<groupId>com.dragon.warIII</groupId>

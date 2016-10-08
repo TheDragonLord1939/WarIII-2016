@@ -24,7 +24,7 @@ public class SolrTool {
 
 	private static final Logger log = LoggerFactory.getLogger(SolrTool.class);
 	
-	public static final ResourceBundle rb = ResourceBundle.getBundle("solr.properties");
+	public static final ResourceBundle rb = ResourceBundle.getBundle("solr");
 	private static final String SOLR_SERVICE_URL = rb.getString("solr.server.url");
 	public static final String DEFAULT_CORE_NAME = rb.getString("solr.server.core.home");
 	
@@ -51,7 +51,6 @@ public class SolrTool {
 				//4.是否允许压缩(要求服务器支持GZIP)
 				httpSolrClient.setAllowCompression(true);
 				//5.连接失败的重试次数
-				httpSolrClient.setMaxRetries(3); // defaults to 0. > 1 not
 			}
 		} catch (Exception e) {
 			log.error("Solr服务器连接失败,失败原因:" + e.getMessage(), e);
@@ -77,6 +76,7 @@ public class SolrTool {
 			getSolrClient().addBeans(dataBeanList);
 		} catch (Exception e) {
 			log.error("Solr批量添加索引失败,失败原因:" + e.getMessage(), e);
+		}
 	}
 		
 	/**
@@ -148,6 +148,12 @@ public class SolrTool {
 		} catch (Exception e) {
 			log.error("Solr提交索引失败,失败原因:" + e.getMessage(), e);
 		}
+	}
+	
+	public static void main(String[] args) {
+		System.out.println("begin...");
+		deleteAll();
+		System.out.println("end...");
 	}
 }
 

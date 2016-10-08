@@ -26,6 +26,11 @@
 			<artifactId>warIII_core</artifactId>
 			<version>${com.dragon.warIII.warIII_core.version}</version>
 		</dependency>   
+		<dependency>
+			<groupId>com.dragon.warIII</groupId>
+			<artifactId>warIII_service</artifactId>
+			<version>${com.dragon.warIII.warIII_service.version}</version>
+		</dependency> 
 		
 		<!-- Spring的5个核心包 -->
 		<dependency>
