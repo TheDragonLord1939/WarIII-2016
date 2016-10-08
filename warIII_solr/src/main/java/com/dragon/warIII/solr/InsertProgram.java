@@ -55,7 +55,6 @@ public class InsertProgram {
 	public static SolrClient getSolrClient() {
 		
 //		return new HttpSolrClient(solrServerUrl + "/" + solrCoreHome); 
-//		无语了,就是用不了.
 		return (new HttpSolrClient.Builder(solrServerUrl + "/" + solrCoreHome)).build();
 	}
 }

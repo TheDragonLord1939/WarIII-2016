@@ -40,5 +40,5 @@
 	</bean>
 	
 	<!-- 4.引入缓存 -->
-	<import resource="classpath*:conf/applicationContext-springAnnotationMemcached.xml"/>
+	<!-- <import resource="classpath*:conf/applicationContext-springAnnotationMemcached.xml"/> -->
 </beans>
