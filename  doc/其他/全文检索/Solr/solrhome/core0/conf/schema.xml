@@ -1,0 +1,95 @@
+<?xml version="1.0" ?>
+<!-- Licensed to the Apache Software Foundation (ASF) under one or more contributor 
+	license agreements. See the NOTICE file distributed with this work for additional 
+	information regarding copyright ownership. The ASF licenses this file to 
+	You under the Apache License, Version 2.0 (the "License"); you may not use 
+	this file except in compliance with the License. You may obtain a copy of 
+	the License at http://www.apache.org/licenses/LICENSE-2.0 Unless required 
+	by applicable law or agreed to in writing, software distributed under the 
+	License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS 
+	OF ANY KIND, either express or implied. See the License for the specific 
+	language governing permissions and limitations under the License. -->
+
+<schema name="example core zero" version="1.5">
+	<!-- Ansj 中文分词 -->
+	<fieldType name="text_cn" class="solr.TextField" positionIncrementGap="100">
+		<analyzer type="index">
+			<tokenizer class="org.ansj.solr.AnsjTokenizerFactory" isQuery="false" />
+		</analyzer>
+		<analyzer type="query">
+			<tokenizer class="org.ansj.solr.AnsjTokenizerFactory" />
+		</analyzer>
+	</fieldType>
+	<!-- 类型定义 -->
+	<fieldtype name="string" class="solr.StrField" sortMissingLast="true" omitNorms="true" />
+	<fieldType name="long" class="solr.TrieLongField" precisionStep="0" positionIncrementGap="0" />
+	<fieldType name="int" class="solr.TrieIntField" precisionStep="0" positionIncrementGap="0"/>
+	<fieldType name="date" class="solr.TrieDateField" precisionStep="0" positionIncrementGap="0"/>
+	<!-- 字段定义 -->
+	<field name="productid" type="int" indexed="true" stored="true" multiValued="false" required="true" />
+	<field name="venuesid" type="int" indexed="true" stored="true" multiValued="false" />
+	<field name="prices" type="string" indexed="true" stored="true" multiValued="false" />
+	<field name="minprice" type="string" indexed="true" stored="true" multiValued="false" />
+	<field name="maxprice" type="string" indexed="true" stored="true" multiValued="false" />
+	<field name="status" type="string" indexed="true" stored="true" multiValued="false" />
+	<field name="begindate" type="string" indexed="true" stored="true" multiValued="false" />
+	<field name="enddate" type="string" indexed="true" stored="true" multiValued="false" />
+	<field name="dbegindate" type="date" indexed="true" stored="true" multiValued="false" />
+	<field name="denddate" type="date" indexed="true" stored="true" multiValued="false" />
+	<field name="pbigimg" type="string" indexed="true" stored="true" multiValued="false" />
+	<field name="onlineseat" type="int" indexed="true" stored="true" multiValued="false" />
+	<field name="pzlx" type="int" indexed="true" stored="true" multiValued="false" />
+	<field name="path" type="string" indexed="true" stored="true" multiValued="false" />
+	<field name="isrobseat" type="int" indexed="true" stored="true" multiValued="false" />
+	<field name="createtime" type="date" indexed="true" stored="true" multiValued="false" />
+	<field name="isdate" type="long" indexed="true" stored="true" multiValued="false" />
+	<field name="cityname" type="text_cn" indexed="true" stored="true" multiValued="false" />
+	<field name="cityjx" type="string" indexed="true" stored="true" multiValued="false" />
+	<field name="typeaname" type="text_cn" indexed="true" stored="true" multiValued="false" />
+	<field name="typeajx" type="string" indexed="true" stored="true" multiValued="false" />
+	<field name="typebid" type="string" indexed="true" stored="true" multiValued="false" />
+	<field name="typebjx" type="string" indexed="true" stored="true" multiValued="false" />
+	<field name="typebname" type="text_cn" indexed="true" stored="true" multiValued="false" />
+	<field name="typeaname1" type="text_cn" indexed="true" stored="true" multiValued="false" />
+	<field name="typeajx1" type="string" indexed="true" stored="true" multiValued="false" />
+	<field name="typebid1" type="string" indexed="true" stored="true" multiValued="false" />
+	<field name="typebjx1" type="string" indexed="true" stored="true" multiValued="false" />
+	<field name="typebname1" type="text_cn" indexed="true" stored="true" multiValued="false" />
+	<field name="name" type="text_cn" indexed="true" stored="true" multiValued="false" />
+	
+	<field name="vname" type="text_cn" indexed="true" stored="true" multiValued="false" />
+	<field name="ename" type="string" indexed="false" stored="true" multiValued="false" />
+	<field name="introduction" type="text_cn" indexed="true" stored="true" multiValued="false" />
+	<field name="introduction1" type="text_cn" indexed="true" stored="true" multiValued="false" />
+	<field name="pinyin" type="text_cn" indexed="true" stored="true" multiValued="false" />
+	<field name="isall" type="string" indexed="true" stored="true" multiValued="false" />
+	<field name="likedata" type="text_cn" indexed="true" stored="true" multiValued="false" />
+	<field name="alldate" type="text_cn" indexed="true" stored="true" multiValued="false" />
+	<field name="publishchannel" type="text_cn" indexed="true" stored="true" multiValued="false" />
+	<field name="topsort" type="int" indexed="true" stored="true" multiValued="false" />
+	<field name="insured" type="int" indexed="true" stored="true" multiValued="false" />
+	<field name="shoppingcart" type="int" indexed="true" stored="true" multiValued="false" />
+	<field name="quickpurchase" type="int" indexed="true" stored="true" multiValued="false" />
+	<field name="shorta" type="text_cn" indexed="true" stored="true" multiValued="false" />
+	<field name="performer" type="text_cn" indexed="true" stored="true" multiValued="false" />
+	<field name="searchdescriptor" type="text_cn" indexed="true" stored="true" multiValued="false" />
+	<field name="isSpecialProduct" type="int" indexed="true" stored="true" multiValued="false" />
+	<field name="tagstr" type="int" indexed="true" stored="true" multiValued="false" />
+	<field name="dzType" type="int" indexed="true" stored="true" multiValued="false" />
+	<field name="_version_" type="long"     indexed="true"  stored="true"/>
+	<!--
+	<field name="core0"     type="string"   indexed="true"  stored="true"  multiValued="false" /> 
+	-->
+	
+	<field name="namesGroup" type="text_cn" indexed="true" stored="true" multiValued="true"/> 
+	<field name="baiduzhidaid" type="int" indexed="true" stored="true" multiValued="false" />
+	<copyField source="name" dest="namesGroup"/>
+	<copyField source="shorta" dest="namesGroup"/>
+	<copyField source="searchdescriptor" dest="namesGroup"/>
+	<copyField source="performer" dest="namesGroup"/>
+	
+	<uniqueKey>productid</uniqueKey>
+	<defaultSearchField>namesGroup</defaultSearchField>
+	<solrQueryParser defaultOperator="OR" />
+</schema>
+

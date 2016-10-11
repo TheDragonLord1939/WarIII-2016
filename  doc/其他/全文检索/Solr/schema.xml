@@ -1,0 +1,93 @@
+<?xml version="1.0" ?>
+<!-- Licensed to the Apache Software Foundation (ASF) under one or more contributor 
+	license agreements. See the NOTICE file distributed with this work for additional 
+	information regarding copyright ownership. The ASF licenses this file to 
+	You under the Apache License, Version 2.0 (the "License"); you may not use 
+	this file except in compliance with the License. You may obtain a copy of 
+	the License at http://www.apache.org/licenses/LICENSE-2.0 Unless required 
+	by applicable law or agreed to in writing, software distributed under the 
+	License is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS 
+	OF ANY KIND, either express or implied. See the License for the specific 
+	language governing permissions and limitations under the License. -->
+
+<schema name="example core zero" version="1.5">
+	<!-- Ansj 中文分词 -->
+	<fieldType name="text_cn" class="solr.TextField" positionIncrementGap="100">
+		<analyzer type="index">
+			<tokenizer class="org.ansj.solr.AnsjTokenizerFactory" isQuery="false" />
+		</analyzer>
+		<analyzer type="query">
+			<tokenizer class="org.ansj.solr.AnsjTokenizerFactory" />
+		</analyzer>
+	</fieldType>
+	<!-- 类型定义 -->
+	<fieldtype name="string" class="solr.StrField" sortMissingLast="true" omitNorms="true" />
+	<fieldType name="long" class="solr.TrieLongField" precisionStep="0" positionIncrementGap="0" />
+	<fieldType name="int" class="solr.TrieIntField" precisionStep="0" positionIncrementGap="0"/>
+	<fieldType name="date" class="solr.TrieDateField" precisionStep="0" positionIncrementGap="0"/>
+	<fieldType name="double" class="solr.TrieDoubleField" precisionStep="0" positionIncrementGap="0"/>
+	<!-- 字段定义 -->
+	<field name="artistId" type="int" indexed="true" stored="true" multiValued="false" required="true" />
+	<field name="artistTypeId" type="string" indexed="true" stored="true" multiValued="false" />
+	<field name="artistType" type="string" indexed="true" stored="true" multiValued="false" />
+	<field name="artistJobId" type="string" indexed="true" stored="true" multiValued="false" />
+	<field name="artistJob" type="string" indexed="true" stored="true" multiValued="false" />
+	<field name="artistAreaId" type="string" indexed="true" stored="true" multiValued="false" />
+	<field name="artistArea" type="string" indexed="true" stored="true" multiValued="false" />
+	<field name="artistName" type="text_cn" indexed="true" stored="true" multiValued="false" />
+	<field name="artistEngName" type="string" indexed="true" stored="true" multiValued="false" />
+	<field name="nickname" type="text_cn" indexed="true" stored="true" multiValued="false" />
+	<field name="nationality" type="string" indexed="true" stored="true" multiValued="false" />
+	<field name="nation" type="string" indexed="true" stored="true" multiValued="false" />
+	<field name="provinceD" type="int" indexed="true" stored="true" multiValued="false" />
+	<field name="cityId" type="int" indexed="true" stored="true" multiValued="false" />
+	<field name="zodiac" type="string" indexed="true" stored="true" multiValued="false" />
+	<field name="constellation" type="string" indexed="true" stored="true" multiValued="false" />
+	<field name="bloodtype" type="string" indexed="true" stored="true" multiValued="false" />
+	<field name="sexId" type="string" indexed="true" stored="true" multiValued="false" />
+	<field name="sex" type="string" indexed="true" stored="true" multiValued="false" />
+	<field name="height" type="double" indexed="true" stored="true" multiValued="false" />
+	<field name="weight" type="double" indexed="true" stored="true" multiValued="false" />
+	<field name="language" type="string" indexed="true" stored="true" multiValued="false" />
+	<field name="bornplace" type="string" indexed="true" stored="true" multiValued="false" />
+	<field name="birthday" type="date" indexed="true" stored="true" multiValued="false" />
+	<field name="college" type="string" indexed="true" stored="true" multiValued="false" />
+	<field name="company" type="string" indexed="true" stored="true" multiValued="false" />
+	<field name="ingroup" type="string" indexed="true" stored="true" multiValued="false" />
+	<field name="performDate" type="date" indexed="true" stored="true" multiValued="false" />
+	<field name="summary" type="text_cn" indexed="true" stored="true" multiValued="false" />
+	<field name="profile" type="text_cn" indexed="true" stored="true" multiValued="false" />
+	
+	<field name="showYn" type="string" indexed="true" stored="true" multiValued="false" />
+	<field name="seq" type="int" indexed="false" stored="true" multiValued="false" />
+	<field name="nameSpell" type="string" indexed="true" stored="true" multiValued="false" />
+	<field name="nationPlace" type="string" indexed="true" stored="true" multiValued="false" />
+
+	<field name="newsCount" type="int" indexed="true" stored="true" multiValued="false" />
+	<field name="songCount" type="int" indexed="true" stored="true" multiValued="false" />
+	<field name="albumCount" type="int" indexed="true" stored="true" multiValued="false" />
+	<field name="perfCount" type="int" indexed="true" stored="true" multiValued="false" />
+	<field name="artistImg" type="string" indexed="true" stored="true" multiValued="false" />
+	<field name="_version_" type="long"     indexed="true"  stored="true"/>
+	<!--
+	<field name="core0"     type="string"   indexed="true"  stored="true"  multiValued="false" /> 
+	-->
+	
+	<field name="namesGroup" type="text_cn" indexed="true" stored="true" multiValued="true"/>
+	<field name="simpleGroup" type="text_cn" indexed="true" stored="true" multiValued="true"/> 
+	
+	<copyField source="artistName" dest="namesGroup"/>
+	<copyField source="nickname" dest="namesGroup"/>
+	<copyField source="summary" dest="namesGroup"/>
+	<copyField source="profile" dest="namesGroup"/>
+	<copyField source="artistEngName" dest="namesGroup"/>
+
+	<copyField source="artistName" dest="simpleGroup"/>
+	<copyField source="nickname" dest="simpleGroup"/>
+	<copyField source="artistEngName" dest="simpleGroup"/>
+	
+	<uniqueKey>artistId</uniqueKey>
+	<defaultSearchField>namesGroup</defaultSearchField>
+	<solrQueryParser defaultOperator="OR" />
+</schema>
+
