@@ -9,7 +9,7 @@ import org.springframework.scheduling.annotation.Scheduled;
 
 import com.dragon.warIII.service.blog.entity.Blog;
 import com.dragon.warIII.service.blog.service.BlogService;
-import com.dragon.warIII.util.SolrTool;
+import com.dragon.warIII.utils.SolrTool;
 
 public class BlogIndexTimer {
 
