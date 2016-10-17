@@ -1,0 +1,60 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<!-- 引入公共css资源 -->
+	<%include("/common/head.html",{}){}%>
+	<link type="text/css" href="${staticPath}/css/artist/search.css${version}" rel="stylesheet" />
+	<link type="text/css" href="${staticPath}/css/artist_xin/nav_xin.css${version}" type="text/css" rel="stylesheet" />
+	<title>${params.areaVal!}${params.jobVal!}${params.typeVal!}${params.artistName!}明星资料库-永乐</title>
+</head>
+<body>
+<!-- 引入 top导航条 -->
+<%include("/common/top.html",{}){}%>
+<!-- 引入搜索框 -->
+<%include("/common/search.html",{}){}%>
+<!-- 引入菜单导航 -->
+<%include("/common/navNew.html",{}){}%>
+<!-- 面包屑  -->
+<div class="common-tit main">
+	<a href="/">首页</a>
+	>
+	<a href="/quanbu/">全明星</a>
+	>
+	<a href="#">搜索${params.artistName!}的结果</a>
+</div>
+<div class="main">
+	<!-- 左侧  最新入库明星   需要自定义标签-->
+	<%celebrity("/search/newArtistForSearch.html",{serviceName:"celebrityListService",limitStart:1,limitEnd:6}){}%>
+	<div class="main-r">
+		<div class="search">
+			<!-- 右侧   头部搜索框  需要自定义标签 -->
+			<%include("/search/searchTop.html",{}){}%>
+			<!-- 右侧   头部类型  需要自定义标签 -->
+			<%include("/search/searchType.html",{}){}%>
+		</div>
+		<!-- 右侧主体内容 -->
+		<div class="search-r-bd">
+			 <!-- 搜索结果页面 需要自定义标签 -->
+			 <%include("/search/searchResult.html",{}){}%>
+			 <div class="search-page">
+				<div class="search-page-t" onclick="searchPage(${countpages},${curPage-1});">上一页</div>
+					<ul>
+						<li class="num"><span>${curPage}</span>/<b>${countpages}</b></li>
+                   </ul>
+                <div class="search-page-b" onclick="searchPage(${countpages},${curPage+1});">下一页</div>
+             </div>
+             <div class="clear"></div>
+             <!-- 推荐歌手 需要自定义标签 -->
+             <%recommed("/search/recommendSonger.html",{serviceName:"songerRecommendService",recommentTypeCd:"70",sectionId:10021,artistJobId:"CD0010",limitStart:1,limitEnd:14}){}%>  
+       </div>
+	</div>
+</div>
+<div class="clear"></div>
+<script type="text/javascript" src="${staticPath}/js/search/search.js${version}"></script>
+<script type="text/javascript" src="${staticPath}/js/index.js${version}"></script>
+<!-- 引入footer -->
+<%include("/common/footer.html",{}){}%>
+<!-- 引入公共js资源 -->
+<%include("/common/bottom.html",{}){}%>	
+</body>
+</html>

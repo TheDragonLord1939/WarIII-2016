@@ -1,0 +1,25 @@
+<!-- 推荐歌手 -->
+<div class="search-r-bd-bd-b">
+	<h4><i></i>推荐歌手</h4>
+	<div class="search-recommend">
+		<ul>
+			<%for(artist in recommendList){%>
+				<%if(artistLP.index%7 == 0){%>
+					<li style="margin-right:0;">
+		     			<a href="${ctxPath}/quanbu/${artist.artistId}/" target="_blank" title="${artist.recoTitle}">
+		     				<%if(artist.imgPath!=null && artist.imgPath !=""){%><img src="${imgStaticPath}/recommend/${artist.imgPath}" width="101" height="101"/><%}else{%><img src="${imgStaticPath}/artist/${artist.artistImg}" width="101" height="101"/><%}%>
+		     			</a>
+		     			<a href="${ctxPath}/quanbu/${artist.artistId}/" target="_blank" title="${artist.recoTitle}">${artist.recoTitle}</a>
+					</li>
+				<%}else{%>
+					<li>
+		     			<a href="${ctxPath}/quanbu/${artist.artistId}/" target="_blank" title="${artist.recoTitle}">
+		     				<%if(artist.imgPath!=null && artist.imgPath !=""){%><img src="${imgStaticPath}/recommend/${artist.imgPath}" width="101" height="101"/><%}else{%><img src="${imgStaticPath}/artist/${artist.artistImg}" width="101" height="101"/><%}%>
+		     			</a>
+		     			<a href="${ctxPath}/quanbu/${artist.artistId}/" target="_blank" title="${artist.recoTitle}">${artist.recoTitle}</a>
+					</li>
+				<%}%>
+			<%}%>
+		</ul>
+	</div>
+</div>  

@@ -1,0 +1,29 @@
+<!-- 右侧头部 -->
+<div class="search-hd">
+	<h3>明星资料</h3>
+	<ul>
+		<li class="yi">
+			<pre class="type"></pre>
+			<a href="javascript:void(0);">x</a>
+		</li>
+		<li class="er">
+			<pre class="area"></pre>
+			<a href="javascript:void(0);">x</a>
+		</li>
+		<li class="san">
+			<pre class="occupation"></pre>
+			<a href="javascript:void(0);">x</a>
+		</li>
+		<li class="si" <%if(params.artistName!=null && params.artistName !=''){%> style="display: block;" <%}%>>
+			<pre class="btn" id="btnWords">${params.artistName}</pre>
+			<a href="javascript:void(0);">x</a>
+		</li>
+	</ul>
+	<form  >
+		<ol>
+			<li><input id="searBIput" type="text" class="test" value="请输入名称进行搜索" maxlength="20" onfocus="if(this.value=='请输入名称进行搜索'){this.value='';}this.style.color='#666';" onblur="if(this.value=='') {this.value='请输入名称进行搜索';this.style.color='#666';}"  /></li>
+			<li><input onclick="javascript:search(true);" id="searchB"  type="button" value="" class="btn" name="btn"/></li>
+		</ol>
+	</form>
+</div>       
+       
