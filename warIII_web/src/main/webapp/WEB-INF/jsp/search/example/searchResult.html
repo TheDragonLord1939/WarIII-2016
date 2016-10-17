@@ -1,0 +1,30 @@
+<!-- 搜索结果 -->
+<div class="search-r-bd-bd">
+	<h4>为您找到${total}个搜索“${params.artistName!}”的结果</h4>
+	<div class="search-r-bd-bd-win">
+		<%for(artist in rows){%>
+			<div class="search-r-bd-bd-bd">
+	      		<a href="${ctxPath}/quanbu/${artist.artistId}/" target="_blank" title="${artist.artistName!}"><img src="${imgStaticPath}/artist/${artist.artistImg}" width="131" height="131"/></a>
+	      		<div class="search-r-data">
+	        		<b><a href="${ctxPath}/quanbu/${artist.artistId}/" target="_blank" title="${artist.artistName!}"><i>${artist.artistName!}</i>个人资料</a></b>
+	        		<ul>
+	             		<li>姓名：${artist.artistName!}</li>
+	             		<li>生日：${artist.birthday!}</li>
+	             		<li>简介：<%if(artist.summary != null && strutil.length(artist.summary)>300){%>${strutil.subStringTo(artist.summary,0,300)}<%}else{%>${artist.summary}<%}%>……<a href="${ctxPath}/quanbu/${artist.artistId!}/info/" target="_blank">>></a></li>
+	        		</ul>
+	        		<ol>
+	        			<%if(artist.songCount > 0 || artist.albumCount > 0 || artist.perfCount > 0){%>
+	             		<li><a target="_blank" href="${ctxPath}/quanbu/${artist.artistId}/work/song.html" target="_blank">代表作品</a></li>
+	             		<%}%>
+	             		<%if(artist.newsCount > 0){%>
+	             		<li><a target="_blank" href="${ctxPath}/quanbu/${artist.artistId}/news/" target="_blank">新闻资讯</a></li>
+	             		<%}%>
+	             		<%if(artist.perfCount > 0){%>
+	             		<li><a target="_blank" href="${ctxPath}/quanbu/${artist.artistId}/showbook/" target="_blank">演出订票</a></li>
+	             		<%}%>
+	        		</ol>
+	      		</div>
+			</div>
+		<%}%>
+	</div>
+</div>

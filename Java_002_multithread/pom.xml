@@ -6,7 +6,7 @@
   <name>warIII_multithread</name>
   <description>If you have any question, just fuck.</description>
   
-  <parent>
+  <parent>  
   	<groupId>com.dragon.warIII</groupId>
   	<artifactId>warIII_parent</artifactId>
   	<version>0.0.1-SNAPSHOT</version>

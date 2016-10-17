@@ -1,0 +1,17 @@
+<!-- 搜索页  最新加入明星 -->
+<div class="main-l">
+	<!-- 最新加入明星 -->	
+	<h3><i></i>最新加入明星</h3>
+	<%for(artist in rows){%>  
+		<div class="main-l-bd">
+		  <a href="${ctxPath}/quanbu/${artist.artistId}/" target="_blank" title="${artist.artistName}"><img src="${imgStaticPath}/artist/${artist.artistImg}" width="81" height="81"/></a>
+		  <dl>
+		  	<dt><a href="${ctxPath}/quanbu/${artist.artistId}/" target="_blank" title="${artist.artistName}">${artist.artistName}</a></dt>
+		  	<dd><a href="${ctxPath}/quanbu/${artist.artistId}/info/" target="_blank">资料</a></dd>
+		    <dd><a href="${ctxPath}/quanbu/${artist.artistId}/work/song.html" target="_blank">作品</a></dd>
+		    <dd><a href="${ctxPath}/quanbu/${artist.artistId}/showbook/" target="_blank">演出</a></dd>
+		    <dd><a href="${ctxPath}/quanbu/${artist.artistId}/news/" target="_blank">新闻</a></dd>
+		  </dl>
+		</div>
+	<%}%>   
+</div>
