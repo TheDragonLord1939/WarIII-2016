@@ -1,0 +1,10 @@
+maven项目涉及的
+单点登录SSO-CAS:
+ylpw
+ylpw_sso
+
+Shiro:
+ylpw_artist_admin
+
+客户关系管理系统(CRM):
+ylpw_crm

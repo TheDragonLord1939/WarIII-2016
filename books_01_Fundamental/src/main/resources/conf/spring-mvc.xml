@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+<beans xmlns="http://www.springframework.org/schema/beans"  
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"  
+    xmlns:context="http://www.springframework.org/schema/context"  
+    xmlns:mvc="http://www.springframework.org/schema/mvc"  
+    xmlns:util="http://www.springframework.org/schema/util" 
+    xsi:schemaLocation="http://www.springframework.org/schema/beans    
+                        http://www.springframework.org/schema/beans/spring-beans-3.1.xsd    
+                        http://www.springframework.org/schema/context    
+                        http://www.springframework.org/schema/context/spring-context-3.1.xsd    
+                        http://www.springframework.org/schema/mvc    
+                        http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd
+                        http://www.springframework.org/schema/util
+                        http://www.springframework.org/schema/util/spring-util-2.0.xsd">
+                        
+    <context:component-scan base-package="com.dragon.warIII"/>            
+    <mvc:annotation-driven/>
+    <!-- 定义请求处理映射HandlerMapping -->
+    <!--  <bean id="handlerMapping" class="org.springframework.web.servlet.handler.SimpleUrlHandlerMapping">
+    	指定请求和Controller对应关系
+    	<property name="mappings" ref="urlMappings"/>
+    </bean>   -->   
+    <!-- 定义请求映射表map -->
+    <!-- <util:properties id="urlMappings">
+    	<prop key="/hello.jhtml">helloController</prop>
+    </util:properties> -->
+    
+    <!--控制器bean配置-->
+    <!--  <bean id="helloController" class="com.dragon.warIII.unit03.case1.HelloController"/> -->
+    
+    <!-- 定义视图解析器ViewResolver -->
+    <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+    	<property name="prefix" value="/WEB-INF/jsp/"/>
+    	<property name="suffix" value=".jsp"/>
+    </bean>
+    
+    <!-- 拦截器设置 -->
+    <mvc:interceptors>
+		<!--     	
+		<mvc:interceptor>
+    		<mvc:mapping path="/spring/*"/>
+    		<mvc:exclude-mapping path="/login/*"/>
+    		<bean class="com.dragon.warIII.unit04.case3.interceptor.SomeInterceptor"></bean>
+    	</mvc:interceptor> -->
+    	<mvc:interceptor>
+    		<mvc:mapping path="/**"/>
+    		<mvc:exclude-mapping path="/login/*"/>
+    		<bean class="com.dragon.warIII.unit04.case4.interceptor.LoginInterceptor2"></bean>
+    	</mvc:interceptor>
+    </mvc:interceptors>
+    
+<!--     <bean class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
+    	<property name="exceptionAttribute" value="ex"></property>
+    	<property name="exceptionMappings">
+    		<props>
+    			<prop key="java.lang.Exception">error</prop>
+    		</props>
+    	</property>
+    </bean> -->
+   <!--  <bean id="exceptionHandler" class="com.dragon.warIII.unit04.case5.controller.exception.MyMappingExceptionResolver"></bean> -->
+</beans>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
