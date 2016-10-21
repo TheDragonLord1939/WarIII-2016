@@ -1,0 +1,33 @@
+<%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<<<<<<< HEAD
+<html>
+	<head>
+		<title>Welcome</title>
+	</head>
+	<body>
+		<h1>Hello Shiro.</h1>
+=======
+<%@ taglib prefix="shiro" uri="http://shiro.apache.org/tags" %>
+<html>
+	<head>
+		<title>Index</title>
+	</head>
+	<body>
+		<h1>hello <shiro:principal></shiro:principal></h1>
+		<shiro:guest>
+			<a href="/shiro-first/login">用户登录</a>
+		</shiro:guest>
+		<shiro:user>
+			<a href="/shiro-first/user/list.jsp">用户列表</a>
+			<shiro:hasPermission name="user:add">
+				<a href="/shiro-first/user/add.jsp">用户添加</a>
+			</shiro:hasPermission>
+			<shiro:hasRole name="admin">
+				<a href="/shiro-first/admin">管理界面</a>
+			</shiro:hasRole>
+			<a href="/shiro-first/logout">退出系统</a>
+		</shiro:user>
+>>>>>>> branch 'master' of git@github.com:TheDragonLord1939/WarIII-2016.git
+	</body>
+</html>  
